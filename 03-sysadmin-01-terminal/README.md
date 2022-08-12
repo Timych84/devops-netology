@@ -4,7 +4,7 @@
   1 ГБ оперативной памяти
   64 ГБ жесткий диск
   ```
-6\. Как добавить оперативной памяти или ресурсов процессора виртуальной машине?\
+6\. Как добавить оперативной памяти или ресурсов процессора виртуальной машине?
 
   В vagranfile добавить следующее:
   ```
@@ -18,7 +18,7 @@
   ```
 8\. Какой переменной можно задать длину журнала history, и на какой строчке manual это описывается?\
    Строка зависит от размера экрана(ниже выдержка из man).\
-   Есть длина файла журнала(по умолчанию . bash_history) и длина журнада кэшированных команд:\
+   Есть длина файла журнала(по умолчанию . bash_history) и длина журнада кэшированных команд:
   ```
   HISTFILESIZE
         The maximum number of lines contained in the history file.  When this variable is assigned a value, the history file is truncated, if necessary, to contain no more than that number of lines by removing the oldest  en‐
@@ -29,7 +29,7 @@
         history list (there is no limit).  The shell sets the default value to 500 after reading any startup files.
   ```
 
-  Что делает директива ignoreboth в bash?\
+  Что делает директива ignoreboth в bash?
 
   ignoreboth - не будет записывать в историю команды, начинающиеся с пробела, а также команды, которые совпадают с предыдущей введенной командой
 
@@ -93,7 +93,7 @@
                   interpreted as part of its name.  The parameter is a shell parameter as described above  PARAMETERS)
                   or an array reference (Arrays).
     ```
-10\. Основываясь на предыдущем вопросе, как создать однократным вызовом touch 100000 файлов? А получилось ли создать 300000? Если нет, то почему?\
+10\. Основываясь на предыдущем вопросе, как создать однократным вызовом touch 100000 файлов? А получилось ли создать 300000? Если нет, то почему?
 
 Создать 100000 файлов:
 ```
@@ -104,7 +104,7 @@ touch {00000..99999}.tst
 echo {000000..299999}.tst |xargs touch
 ```
 
-11\. В man bash поищите по /\[\[. Что делает конструкция [[ -d /tmp ]]\
+11\. В man bash поищите по /\[\[. Что делает конструкция [[ -d /tmp ]]
     
 [[ expression ]] - проверка выражения, возвращает результат в exit code, например 0 - true , 1 -false. Exit code можно посмотреть в echo $?.
 Конструкция [[ -d /tmp ]] проверяет наличие директории /tmp
