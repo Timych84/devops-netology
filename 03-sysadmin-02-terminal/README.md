@@ -45,11 +45,13 @@
 
 1. Получится ли в качестве входного потока для pipe использовать только stderr команды, не потеряв при этом отображение stdout на pty? Напоминаем: по умолчанию через pipe передается только stdout команды слева от `|` на stdin команды справа.
 Это можно сделать, поменяв стандартные потоки местами через промежуточный новый дескриптор, который вы научились создавать в предыдущем вопросе.
-    ```
-    [root~]# ls /tmp  4>&1 5>&2 2>&4 1>&5 |grep file
-    systemd-private-5fec696b0f8c43a4b6c3da94b730ad5e-chronyd.service-wp9LQ4
-    [root~]# ls /tmp1  4>&1 5>&2 2>&4 1>&5 |grep file
+    ```bash
+    vagrant@vagrant:~$ ls /tmp 3>&1 1>&2 2>&3 3>&- |grep file
+    recover   systemd-private-7a280f9e0b8b49729caa3e327b8abf3a-ModemManager.service-ui0dch    systemd-private-7a280f9e0b8b49729caa3e327b8abf3a-systemd-resolved.service-hWqAGg
+    snap.lxd  systemd-private-7a280f9e0b8b49729caa3e327b8abf3a-systemd-logind.service-Ipoakg  vagrant-shell
+    vagrant@vagrant:~$ ls /tmp1 3>&1 1>&2 2>&3 3>&- |grep file
     ls: cannot access '/tmp1': No such file or directory
+
     ```
 
 1. Что выведет команда `cat /proc/$$/environ`? Как еще можно получить аналогичный по содержанию вывод?
