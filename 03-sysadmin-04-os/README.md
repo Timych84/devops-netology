@@ -80,9 +80,7 @@
 
 1. Ознакомьтесь с опциями node_exporter и выводом `/metrics` по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
 
-
-
-2. Установите в свою виртуальную машину [Netdata](https://github.com/netdata/netdata). Воспользуйтесь [готовыми пакетами](https://packagecloud.io/netdata/netdata/install) для установки (`sudo apt install -y netdata`). После успешной установки:
+1. Установите в свою виртуальную машину [Netdata](https://github.com/netdata/netdata). Воспользуйтесь [готовыми пакетами](https://packagecloud.io/netdata/netdata/install) для установки (`sudo apt install -y netdata`). После успешной установки:
     * в конфигурационном файле `/etc/netdata/netdata.conf` в секции [web] замените значение с localhost на `bind to = 0.0.0.0`,
     * добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте `vagrant reload`:
 
@@ -92,7 +90,29 @@
 
     После успешной перезагрузки в браузере *на своем ПК* (не в виртуальной машине) вы должны суметь зайти на `localhost:19999`. Ознакомьтесь с метриками, которые по умолчанию собираются Netdata и с комментариями, которые даны к этим метрикам.
 
-3. Можно ли по выводу `dmesg` понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?
+    ```bash
+    vagrant@vagrant:~$ systemctl status netdata.service
+    ● netdata.service - netdata - Real-time performance monitoring
+        Loaded: loaded (/lib/systemd/system/netdata.service; enabled; vendor preset: enabled)
+        Active: active (running) since Fri 2022-08-26 19:41:49 UTC; 3min 0s ago
+        Docs: man:netdata
+                file:///usr/share/doc/netdata/html/index.html
+                https://github.com/netdata/netdata
+    Main PID: 672 (netdata)
+        Tasks: 22 (limit: 2274)
+        Memory: 68.7M
+        CGroup: /system.slice/netdata.service
+                ├─672 /usr/sbin/netdata -D
+                ├─821 bash /usr/lib/netdata/plugins.d/tc-qos-helper.sh 1
+                ├─839 /usr/lib/netdata/plugins.d/nfacct.plugin 1
+                └─870 /usr/lib/netdata/plugins.d/apps.plugin 1
+
+    Aug 26 19:41:49 vagrant systemd[1]: Started netdata - Real-time performance monitoring.
+    Aug 26 19:41:49 vagrant netdata[672]: SIGNAL: Not enabling reaper
+    Aug 26 19:41:49 vagrant netdata[672]: 2022-08-26 19:41:49: netdata INFO  : MAIN : SIGNAL: Not enabling reaper
+    ```
+    Посмотрел, годится для одиночных серверов, например домашнего самодельного NAS вполне подойдет.
+1. Можно ли по выводу `dmesg` понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?
     ```bash
     root@vagrant:~/testscripts# dmesg  |grep -i virtual
     [    0.000000] DMI: innotek GmbH VirtualBox/VirtualBox, BIOS VirtualBox 12/01/2006
@@ -101,10 +121,71 @@
     [    2.600549] systemd[1]: Detected virtualization oracle.
     ```
 
-4. Как настроен sysctl `fs.nr_open` на системе по-умолчанию? Узнайте, что означает этот параметр. Какой другой существующий лимит не позволит достичь такого числа (`ulimit --help`)?
-5. Запустите любой долгоживущий процесс (не `ls`, который отработает мгновенно, а, например, `sleep 1h`) в отдельном неймспейсе процессов; покажите, что ваш процесс работает под PID 1 через `nsenter`. Для простоты работайте в данном задании под root (`sudo -i`). Под обычным пользователем требуются дополнительные опции (`--map-root-user`) и т.д.
-6. Найдите информацию о том, что такое `:(){ :|:& };:`. Запустите эту команду в своей виртуальной машине Vagrant с Ubuntu 20.04 (**это важно, поведение в других ОС не проверялось**). Некоторое время все будет "плохо", после чего (минуты) – ОС должна стабилизироваться. Вызов `dmesg` расскажет, какой механизм помог автоматической стабилизации. Как настроен этот механизм по-умолчанию, и как изменить число процессов, которое можно создать в сессии?
-[  984.073380] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-1.scope
+1. Как настроен sysctl `fs.nr_open` на системе по-умолчанию? Узнайте, что означает этот параметр. Какой другой существующий лимит не позволит достичь такого числа (`ulimit --help`)?
+    ```bash
+    vagrant@vagrant:~$ sysctl fs.nr_open
+    fs.nr_open = 1048576
+    ```    
+    Параметр fs.nr_open - лимит на максимальное количество открытых дескрипторов также можно посмотреть в:
+    ```bash
+    vagrant@vagrant:~$ cat /proc/sys/fs/nr_open
+    1048576
+    ```
+    Также есть лимит на количество открытых фалйов ulimit -n(есть мягкий и жесткий лимит, непривилегированный пользователь может менять лимит в пределах значеня жесткого лимита):
+    ```bash
+    vagrant@vagrant:~$ ulimit -S -n
+        1024
+    vagrant@vagrant:~$ ulimit -H -n
+        1048576
+    vagrant@vagrant:~$ ulimit -S -n 1048576
+    vagrant@vagrant:~$ ulimit -S -n
+        1048576
+    vagrant@vagrant:~$  ulimit -S -n 1048577
+    -bash: ulimit: open files: cannot modify limit: Invalid argument
+    ```
+    
+1. Запустите любой долгоживущий процесс (не `ls`, который отработает мгновенно, а, например, `sleep 1h`) в отдельном неймспейсе процессов; покажите, что ваш процесс работает под PID 1 через `nsenter`. Для простоты работайте в данном задании под root (`sudo -i`). Под обычным пользователем требуются дополнительные опции (`--map-root-user`) и т.д.
+
+    ```bash
+    root@vagrant:~# unshare --fork --pid --mount-proc sleep 1h
+    ^Z
+    bg
+    root@vagrant:~# ps
+        PID TTY          TIME CMD
+    6424 pts/1    00:00:00 sudo
+    6425 pts/1    00:00:00 su
+    6426 pts/1    00:00:00 bash
+    6495 pts/1    00:00:00 unshare
+    6496 pts/1    00:00:00 sleep
+    6498 pts/1    00:00:00 ps
+
+    vagrant@vagrant:~/test$ sudo nsenter --target 6496 --pid --mount
+    root@vagrant:/# ps aux
+    USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+    root           1  0.0  0.0   5476   584 pts/1    S+   12:34   0:00 sleep 15m
+    root           2  0.1  0.2   8304  5144 pts/2    S    12:34   0:00 -bash
+    root          15  0.0  0.1   8888  3324 pts/2    R+   12:34   0:00 ps aux
+    ```
+
+2. Найдите информацию о том, что такое `:(){ :|:& };:`. Запустите эту команду в своей виртуальной машине Vagrant с Ubuntu 20.04 (**это важно, поведение в других ОС не проверялось**). Некоторое время все будет "плохо", после чего (минуты) – ОС должна стабилизироваться. Вызов `dmesg` расскажет, какой механизм помог автоматической стабилизации. Как настроен этот механизм по-умолчанию, и как изменить число процессов, которое можно создать в сессии?
+
+Если разобрать команду то получтся:
+
+1. :() - обявляется функция с именем ":"
+1. :|:& - вызывает сама себя и отправляет вывод в нее же и всё это запускается в фоне
+1. ;: - конец определния функции и сразу же ее запуск 
+1. Таким образом получится, что функция начнет постоянно вызывать саму себя пока не упрется в ограничение количества процессов на пользователя, дальше система не даст создавать дополнительные форки.
+
+
+    ```bash
+    root@vagrant:~# ulimit -S -u
+    7580
+
+    root@vagrant:~# ulimit -S -u 1000
+    #после этого стабилизация произойдет быстрее
+    
+    [  984.073380] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-1.scope
+    ```
 
  
  ---
