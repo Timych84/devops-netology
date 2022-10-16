@@ -1,6 +1,7 @@
 # devops-netology
 NewLine
 Pull Request Test
+Pull Request Test2
 ###  Модуль 2. Системы управления версиями
 
 1. [Системы контроля версий] Домашнее задание.
