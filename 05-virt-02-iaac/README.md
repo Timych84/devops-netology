@@ -16,7 +16,7 @@
 
     - Легкое использование, всё описывается YAML конфигурацией
     - Большое количество модулей с возможностью писать собственные на python
-    - отсутсвие необходимости установки агентов
+    - Отсутсвие необходимости установки агентов
 
 - Какой, на ваш взгляд, метод работы систем конфигурации более надёжный push или pull?
 
@@ -134,9 +134,6 @@ end
 
     - name: Installing docker
       shell: curl -fsSL get.docker.com -o get-docker.sh && chmod +x get-docker.sh && ./get-docker.sh
-
-    - name: testwhoami
-      shell: whoami >> whoami.txt
 
     - name: Add the current user to docker group
       user:
