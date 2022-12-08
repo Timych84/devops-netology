@@ -1,0 +1,4 @@
+---
+# file: site.yml
+- import_playbook: grafana_server.yml
+- import_playbook: host_nodeexporter.yml

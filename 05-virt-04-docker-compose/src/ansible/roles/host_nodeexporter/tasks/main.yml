@@ -1,0 +1,13 @@
+---
+  # - name: deploy Docker Compose stack
+  #   community.docker.docker_compose:
+  #     project_src: /opt/stack
+  #     files:
+  #     - docker-compose.yml
+
+
+  - name: Pull all images in compose
+    command: docker-compose -f /opt/stack/exporters/docker-compose.exporters.yaml pull
+
+  - name: Up all services in compose
+    command: docker-compose -f /opt/stack/exporters/docker-compose.exporters.yaml up -d

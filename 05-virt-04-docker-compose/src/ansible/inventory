@@ -1,0 +1,6 @@
+[grafana_servers]
+centos7-node1 ansible_host=51.250.26.31
+
+
+[nodeexporter_hosts]
+centos7-node2 ansible_host=51.250.30.89

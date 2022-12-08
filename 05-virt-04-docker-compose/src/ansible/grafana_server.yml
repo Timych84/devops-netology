@@ -1,0 +1,9 @@
+---
+# file: grafana_server.yml
+- hosts: grafana_servers
+  become: yes
+  become_user: root
+  remote_user: centos
+  roles:
+    - common
+    - grafana_server

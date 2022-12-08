@@ -1,0 +1,22 @@
+---
+  # - name: firewalld rules
+  #   ansible.posix.firewalld:
+  #     port: "{{ item }}"
+  #     permanent: yes
+  #     state: disabled
+  #     immediate: true
+  #   with_items:
+  #     - 3000/tcp
+
+  # - name: deploy Docker Compose stack
+  #   community.docker.docker_compose:
+  #     project_src: /opt/stack
+  #     files:
+  #     - docker-compose.yml
+
+
+  - name: Pull all images in compose
+    command: docker-compose -f /opt/stack/docker-compose.yaml pull
+
+  - name: Up all services in compose
+    command: docker-compose -f /opt/stack/docker-compose.yaml up -d
