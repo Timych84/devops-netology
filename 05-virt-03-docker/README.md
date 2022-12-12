@@ -20,6 +20,7 @@ Hey, Netology
 ```
 Опубликуйте созданный форк в своем репозитории и предоставьте ответ в виде ссылки на https://hub.docker.com/username_repo.
 
+https://hub.docker.com/r/timych84/nginx-timych
 
 
 ## Задача 2
@@ -34,13 +35,23 @@ Hey, Netology
 Сценарий:
 
 - Высоконагруженное монолитное java веб-приложение;
+  - Java приложение подходит для работы в контейнерах,
+  - https://blogs.oracle.com/java/post/java-se-support-for-docker-cpu-and-memory-limits
+  - из преимуществ простота развертывания и переноса, отсутствие пересечения с другими сервисами.
 - Nodejs веб-приложение;
+    - Подходит. Простота развертывания, возможность параллельного запуска нескольких контейнеров.
 - Мобильное приложение c версиями для Android и iOS;
+  - Возможно использовать при тестировании приложений.
 - Шина данных на базе Apache Kafka;
+  - Хорошо подходит для работы в контейнере. Упрощается масштабирование, простота развертывания.
 - Elasticsearch кластер для реализации логирования продуктивного веб-приложения - три ноды elasticsearch, два logstash и две ноды kibana;
+  - Хорошо подходит для контейнеризации, но нужно решать вопрос хранения данных вне контейнера
 - Мониторинг-стек на базе Prometheus и Grafana;
+    - Хорошо подходит для контейнеризации, но нужно решать вопрос хранения данных вне контейнера
 - MongoDB, как основное хранилище данных для java-приложения;
+  - Подходит любая реализация в зависимости от масштабов решиения и требуемой производительности.
 - Gitlab сервер для реализации CI/CD процессов и приватный (закрытый) Docker Registry.
+  - Можно использовать и ВМ и в контейнере в зависимости от масштабов и требований. Есть готовые решения на docker.
 
 ## Задача 3
 
@@ -84,7 +95,67 @@ Hey, Netology
 
 Соберите Docker образ с Ansible, загрузите на Docker Hub и пришлите ссылку вместе с остальными ответами к задачам.
 
-https://hub.docker.com/repository/docker/timych84/ansible
-
-
 https://hub.docker.com/r/timych84/ansible
+
+Dockerfile:
+
+```dockerfile
+# pull base image
+FROM alpine:3.16
+
+ARG ANSIBLE_CORE_VERSION_ARG="2.9.27"
+ARG ANSIBLE_LINT="5.4.0"
+ENV ANSIBLE_LINT=${ANSIBLE_LINT}
+ENV ANSIBLE_CORE=${ANSIBLE_CORE_VERSION_ARG}
+# ENV ANSIBLE_CORE "2.9.27"
+# ENV ANSIBLE_LINT "5.4.0"
+
+# Labels.
+LABEL maintainer="tdalexeev@gmail.com"
+LABEL org.label-schema.schema-version="1.0"
+LABEL org.label-schema.build-date=$BUILD_DATE
+LABEL org.label-schema.vcs-ref=$VCS_REF
+LABEL org.label-schema.name="timych84/ansible"
+LABEL org.label-schema.description="Ansible inside Docker"
+LABEL org.label-schema.vendor="Timych84"
+LABEL org.label-schema.docker.cmd="docker run --rm -it -v $(pwd):/ansible -v ~/.ssh/id_rsa:/root/id_rsa timych84/ansible:2.9.27"
+
+RUN CARGO_NET_GIT_FETCH_WITH_CLI=1 && \
+    apk --no-cache add \
+        sudo \
+        python3\
+        py3-pip \
+        openssl \
+        ca-certificates \
+        sshpass \
+        openssh-client \
+        rsync \
+        git && \
+    apk --no-cache add --virtual build-dependencies \
+        python3-dev \
+        libffi-dev \
+        musl-dev \
+        gcc \
+        cargo \
+        openssl-dev \
+        libressl-dev \
+        build-base && \
+    CARGO_NET_GIT_FETCH_WITH_CLI=1 && \
+    pip install --upgrade pip wheel && \
+    pip install --upgrade cryptography cffi && \
+    pip install ansible==${ANSIBLE_CORE} && \
+    pip install mitogen==0.2.10 ansible-lint==${ANSIBLE_LINT} jmespath && \
+    pip install --upgrade pywinrm && \
+    apk del build-dependencies && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /root/.cache/pip && \
+    rm -rf /root/.cargo
+
+RUN mkdir /ansible && \
+    mkdir -p /etc/ansible && \
+    echo 'localhost' > /etc/ansible/hosts
+
+WORKDIR /ansible
+
+CMD [ "ansible-playbook", "--version" ]
+```
