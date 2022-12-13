@@ -10,7 +10,7 @@
 - Какой алгоритм выбора лидера используется в Docker Swarm кластере?
   - Используется алгоритм распределённого консенсуса Raft. Подробно рассмотрено тут: http://thesecretlivesofdata.com/raft/
 - Что такое Overlay Network?
-  -
+  -Виртуальная сеть поверх существующей связи между хостами Docker Swarm, которую могут использовать контейнеры на разнвх хостах кластера. Для реализации используется технология vxlan
 
 ## Задача 2
 
@@ -31,6 +31,11 @@ docker node ls
 docker service ls
 ```
 
+## Ответ к задачам 2 и 3:
+ ![](img/2022-12-09_22-17-25.png)
+ ![](img/2022-12-09_22-15-15.png)
+ ![](img/2022-12-09_22-15-31.png)
+
 ## Задача 4 (*)
 
 Выполнить на лидере Docker Swarm кластера команду (указанную ниже) и дать письменное описание её функционала, что она делает и зачем она нужна:
@@ -38,3 +43,21 @@ docker service ls
 # см.документацию: https://docs.docker.com/engine/swarm/swarm_manager_locking/
 docker swarm update --autolock=true
 ```
+
+Команда позволяет заблокировать кластер docker swarm и не допускает присоединения менеджера к кластеру после перезагрузки сервиса.
+Для присоединения требуется ввести ключ который выводится при запуске команды docker swarm update --autolock=true.
+Вывод команды:
+
+```bash
+[root@centos7-node1 ~]# docker swarm update --autolock=true
+Swarm updated.
+To unlock a swarm manager after it restarts, run the `docker swarm unlock`
+command and provide the following key:
+
+    SWMKEY-1-ftw7VJRKEgckMCqu/ul6PtDYr2F6QhLTNt0hkEVQHd4
+
+Please remember to store this key in a password manager, since without it you
+will not be able to restart the manager.
+```
+
+Данная технология позволяет предотвратить несанкционированный доступ к управлению кластером.
