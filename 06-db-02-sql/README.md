@@ -152,48 +152,47 @@ Foreign-key constraints:
 
 
 ```sql
-SELECT grantee, privilege_type
+SELECT grantee, table_name, privilege_type
 FROM information_schema.role_table_grants
 WHERE table_schema='public';
-
-     grantee      | privilege_type
-------------------+----------------
- postgres         | INSERT
- postgres         | SELECT
- postgres         | UPDATE
- postgres         | DELETE
- postgres         | TRUNCATE
- postgres         | REFERENCES
- postgres         | TRIGGER
- test-admin-user  | INSERT
- test-admin-user  | SELECT
- test-admin-user  | UPDATE
- test-admin-user  | DELETE
- test-admin-user  | TRUNCATE
- test-admin-user  | REFERENCES
- test-admin-user  | TRIGGER
- test-simple-user | INSERT
- test-simple-user | SELECT
- test-simple-user | UPDATE
- test-simple-user | DELETE
- postgres         | INSERT
- postgres         | SELECT
- postgres         | UPDATE
- postgres         | DELETE
- postgres         | TRUNCATE
- postgres         | REFERENCES
- postgres         | TRIGGER
- test-admin-user  | INSERT
- test-admin-user  | SELECT
- test-admin-user  | UPDATE
- test-admin-user  | DELETE
- test-admin-user  | TRUNCATE
- test-admin-user  | REFERENCES
- test-admin-user  | TRIGGER
- test-simple-user | INSERT
- test-simple-user | SELECT
- test-simple-user | UPDATE
- test-simple-user | DELETE
+     grantee      | table_name | privilege_type
+------------------+------------+----------------
+ postgres         | orders     | INSERT
+ postgres         | orders     | SELECT
+ postgres         | orders     | UPDATE
+ postgres         | orders     | DELETE
+ postgres         | orders     | TRUNCATE
+ postgres         | orders     | REFERENCES
+ postgres         | orders     | TRIGGER
+ test-admin-user  | orders     | INSERT
+ test-admin-user  | orders     | SELECT
+ test-admin-user  | orders     | UPDATE
+ test-admin-user  | orders     | DELETE
+ test-admin-user  | orders     | TRUNCATE
+ test-admin-user  | orders     | REFERENCES
+ test-admin-user  | orders     | TRIGGER
+ test-simple-user | orders     | INSERT
+ test-simple-user | orders     | SELECT
+ test-simple-user | orders     | UPDATE
+ test-simple-user | orders     | DELETE
+ postgres         | clients    | INSERT
+ postgres         | clients    | SELECT
+ postgres         | clients    | UPDATE
+ postgres         | clients    | DELETE
+ postgres         | clients    | TRUNCATE
+ postgres         | clients    | REFERENCES
+ postgres         | clients    | TRIGGER
+ test-admin-user  | clients    | INSERT
+ test-admin-user  | clients    | SELECT
+ test-admin-user  | clients    | UPDATE
+ test-admin-user  | clients    | DELETE
+ test-admin-user  | clients    | TRUNCATE
+ test-admin-user  | clients    | REFERENCES
+ test-admin-user  | clients    | TRIGGER
+ test-simple-user | clients    | INSERT
+ test-simple-user | clients    | SELECT
+ test-simple-user | clients    | UPDATE
+ test-simple-user | clients    | DELETE
 (36 rows)
 ```
 
