@@ -24,16 +24,22 @@
 
 Используя `psql` создайте БД `test_database`.
 
+
+```bash
 psql -U postgres -c "CREATE DATABASE test_database;"
 CREATE DATABASE "test_database";
+```
+
 
 
 Изучите [бэкап БД](https://github.com/netology-code/virt-homeworks/tree/virt-11/06-db-04-postgresql/test_data).
 
 Восстановите бэкап БД в `test_database`.
 
-cat test_dump.sql | docker exec -i postgresql-db-1 /bin/bash -c 'psql -U postgres -d test_database'
 
+```bash
+cat test_dump.sql | docker exec -i postgresql-db-1 /bin/bash -c 'psql -U postgres -d test_database'
+```
 
 Перейдите в управляющую консоль `psql` внутри контейнера.
 
