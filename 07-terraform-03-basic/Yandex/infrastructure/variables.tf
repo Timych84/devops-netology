@@ -27,7 +27,7 @@ variable "zone" {
 variable "env_settings" {
   default = {
     prod = {
-      instances     = 1
+      instances     = 2
       nameprefix    = "prod-server"
       core_fraction = 100
       cores         = 2

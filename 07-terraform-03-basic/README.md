@@ -53,10 +53,10 @@ timych@timych-ubu2:~/test_tf/AWS/infrastructure$ terraform workspace list
 timych@timych-ubu2:~/test_tf/AWS/infrastructure$ terraform plan
 data.aws_caller_identity.current: Reading...
 data.aws_region.current: Reading...
-data.aws_region.current: Read complete after 0s [id=eu-central-1]
 data.aws_ami.ubuami: Reading...
-data.aws_ami.ubuami: Read complete after 1s [id=ami-03e08697c325f02ab]
-data.aws_caller_identity.current: Read complete after 1s [id=256513955965]
+data.aws_region.current: Read complete after 0s [id=eu-central-1]
+data.aws_ami.ubuami: Read complete after 0s [id=ami-03e08697c325f02ab]
+data.aws_caller_identity.current: Read complete after 0s [id=256513955965]
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
@@ -657,6 +657,75 @@ Terraform will perform the following actions:
         }
     }
 
+  # yandex_compute_instance.test_server[1] will be created
+  + resource "yandex_compute_instance" "test_server" {
+      + allow_stopping_for_update = true
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = "prod-server-1"
+      + id                        = (known after apply)
+      + name                      = "prod-server-1"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = "ru-central1-a"
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd83i2c8nu5lmo8aodom"
+              + name        = "prod-server-1"
+              + size        = 10
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + metadata_options {
+          + aws_v1_http_endpoint = (known after apply)
+          + aws_v1_http_token    = (known after apply)
+          + gce_http_endpoint    = (known after apply)
+          + gce_http_token       = (known after apply)
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 2
+          + memory        = 8
+        }
+
+      + scheduling_policy {
+          + preemptible = true
+        }
+    }
+
   # yandex_compute_instance.test_server_foreach["server1"] will be created
   + resource "yandex_compute_instance" "test_server_foreach" {
       + allow_stopping_for_update = true
@@ -821,14 +890,16 @@ Terraform will perform the following actions:
       + zone           = "ru-central1-a"
     }
 
-Plan: 5 to add, 0 to change, 0 to destroy.
+Plan: 6 to add, 0 to change, 0 to destroy.
 
 Changes to Outputs:
-  + Servers_by_count                       = 1
+  + Servers_by_count                       = 2
   + Servers_by_count_external_ip_address   = [
+      + (known after apply),
       + (known after apply),
     ]
   + Servers_by_count_internal_ip_address   = [
+      + (known after apply),
       + (known after apply),
     ]
   + Servers_by_foreach                     = 2
