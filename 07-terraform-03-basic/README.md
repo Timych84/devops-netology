@@ -10,7 +10,7 @@
 [здесь](https://www.terraform.io/docs/backends/types/s3.html).
 1. Зарегистрируйте бэкэнд в терраформ проекте как описано по ссылке выше.
 
-Ссылки на создание создание бакетов с помошью Terraform:
+Ссылки на создание бакетов с помошью Terraform:
 - AWS: [Конфигурация](https://github.com/Timych84/devops-netology/tree/main/07-terraform-03-basic/AWS/backend)
 - Yandex: [Конфигурация](https://github.com/Timych84/devops-netology/tree/main/07-terraform-03-basic/Yandex/backend)
 
