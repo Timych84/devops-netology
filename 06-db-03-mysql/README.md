@@ -18,9 +18,16 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: database
+      MYSQL_DATABASE: db
     volumes:
-      - ./apps/mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+volumes:
+  mysql:
 ```
 
 Изучите [бэкап БД](https://github.com/netology-code/virt-homeworks/tree/virt-11/06-db-03-mysql/test_data) и
