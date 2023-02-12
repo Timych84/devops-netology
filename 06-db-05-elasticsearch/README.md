@@ -118,7 +118,7 @@ EXPOSE 9300
 
 
 ```json
-timych@timych-ubu2:~$ curl -X PUT "https://192.168.171.200:9200/ind-1?pretty"   -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure -H 'Content-Type: application/json' -d'
+curl -X PUT "https://192.168.171.200:9200/ind-1?pretty"   -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure -H 'Content-Type: application/json' -d'
 > {
 >   "settings": {
 >     "index": {
@@ -127,12 +127,28 @@ timych@timych-ubu2:~$ curl -X PUT "https://192.168.171.200:9200/ind-1?pretty"   
 >     }
 >   }
 > }
-> '
+
+curl -X PUT "https://192.168.171.200:9200/ind-2?pretty"   -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure -H 'Content-Type: application/json' -d'
 {
-  "acknowledged" : true,
-  "shards_acknowledged" : true,
-  "index" : "ind-1"
+  "settings": {
+    "index": {
+      "number_of_shards": 2,
+      "number_of_replicas": 1
+    }
+  }
 }
+'
+
+curl -X PUT "https://192.168.171.200:9200/ind-3?pretty"   -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure -H 'Content-Type: application/json' -d'
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 4,
+      "number_of_replicas": 2
+    }
+  }
+}
+'
 ```
 
 
