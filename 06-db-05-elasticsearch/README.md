@@ -119,14 +119,14 @@ EXPOSE 9300
 
 ```json
 curl -X PUT "https://192.168.171.200:9200/ind-1?pretty"   -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure -H 'Content-Type: application/json' -d'
-> {
->   "settings": {
->     "index": {
->       "number_of_shards": 1,
->       "number_of_replicas": 0
->     }
->   }
-> }
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0
+    }
+  }
+}
 
 curl -X PUT "https://192.168.171.200:9200/ind-2?pretty"   -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure -H 'Content-Type: application/json' -d'
 {
@@ -216,13 +216,13 @@ timych@timych-ubu2:~$ curl --cacert ./http_ca.crt -XGET "https://192.168.171.200
 
 ```json
 timych@timych-ubu2:~$ curl -X PUT "https://192.168.171.200:9200/_snapshot/netology_backup?pretty" -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure  -H 'Content-Type: application/json' -d'
-> {
->   "type": "fs",
->   "settings": {
->     "location": "/usr/share/elasticsearch/snapshots"
->   }
-> }
-> '
+{
+  "type": "fs",
+  "settings": {
+    "location": "/usr/share/elasticsearch/snapshots"
+  }
+}
+'
 {
   "acknowledged" : true
 }
@@ -235,15 +235,15 @@ timych@timych-ubu2:~$ curl -X PUT "https://192.168.171.200:9200/_snapshot/netolo
 
 ```json
 timych@timych-ubu2:~$ curl -X PUT "https://192.168.171.200:9200/test?pretty"   -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure -H 'Content-Type: application/json' -d'
-> {
->   "settings": {
->     "index": {
->       "number_of_shards": 1,
->       "number_of_replicas": 0
->     }
->   }
-> }
-> '
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0
+    }
+  }
+}
+'
 {
   "acknowledged" : true,
   "shards_acknowledged" : true,
@@ -259,10 +259,10 @@ green open test c8yiHFnGT02FmtaSmiu2Ug 1 0 0 0 225b 225b
 
 ```json
 timych@timych-ubu2:~$ curl -X PUT "https://192.168.171.200:9200/_snapshot/netology_backup/my_snapshot?pretty" -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure   -H 'Content-Type: application/json' -d'
-> {
->   "indices": "test"
-> }
-> '
+{
+  "indices": "test"
+}
+'
 {
   "accepted" : true
 }
@@ -292,15 +292,15 @@ timych@timych-ubu2:~$ curl -X DELETE "https://192.168.171.200:9200/test?pretty" 
   "acknowledged" : true
 }
 timych@timych-ubu2:~$ curl -X PUT "https://192.168.171.200:9200/test-2?pretty"   -u elastic:hBpqxHH3NNQy2q4kLzg8 --insecure -H 'Content-Type: application/json' -d'
-> {
->   "settings": {
->     "index": {
->       "number_of_shards": 1,
->       "number_of_replicas": 0
->     }
->   }
-> }
-> '
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0
+    }
+  }
+}
+'
 {
   "acknowledged" : true,
   "shards_acknowledged" : true,
