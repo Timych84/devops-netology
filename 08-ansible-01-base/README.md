@@ -234,6 +234,8 @@ docker compose down
 
 6. Все изменения должны быть зафиксированы и отправлены в вашей личный репозиторий.
 
+[Ссылка на плейбук и скрипты](https://github.com/Timych84/devops-netology/tree/main/08-ansible-01-base/playbook)
+
 ---
 
 ### Как оформить ДЗ?
