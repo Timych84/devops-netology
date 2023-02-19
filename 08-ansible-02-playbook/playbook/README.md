@@ -1,5 +1,5 @@
 # Playbook for installing Clickhouse and Vector on CentOS7 hosts
-Плейбук позволяет установить Clickhouse и Vector на хосты а также сконфигурировать эти сервисы:
+Плейбук позволяет установить Clickhouse и Vector на хосты, а также сконфигурировать эти сервисы:
 - на Clickhouse создается БД logs с таблицей journald для приема событий journald из Vector
 - Vector конфигурируется для настройки отправки журналов ОС в Clickhouse
 
@@ -38,7 +38,7 @@
 ## Templates
 |Name  |Descriprion  |
 |---------|---------|
-|vector.j2|Шаблон конфигурации по умолчанию Vector|
+|vector.j2|Шаблон файла конфигурации по умолчанию Vector|
 |vector.yml.j2|Шаблон конфигурации Vector|
 
 ---
