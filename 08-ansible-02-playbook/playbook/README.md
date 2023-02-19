@@ -7,8 +7,41 @@
 - Install Clickhouse (Скачивание и первичная настройка Clickhouse)
 - Configure Сlickhouse (Настройка Clickhouse для приема логов из Vector)
 - Install Vector (Скачивание и настройка Vector)
+## Variables
+/group_vars/clickhouse/vars.yml:
+|Name  |Descriprion  |
+|---------|---------|
+|clickhouse_version| Версия Clickhouse для скачивания|
+|clickhouse_packages| Список пакетов для скачивания|
+|clickhouse_syslog_table_query|Запрос к Clickhouse на создание таблицы для Vector|
+|clickhouse_server_config_file|Путь к файлу конфигурации сервера Clickhouse|
+|clickhouse_client_config_file|Пусть к файлу клиентской конфигурации Clickhouse|
+|clickhouse_server_listen_ip_address|IP-адрес с которого служба Clickhouse будет слушать запросы|
 
-## Описание плейбука
+/group_vars/vector/vars.yml:
+|Name  |Descriprion  |
+|---------|---------|
+|vector_version| Версия Vector для скачивания|
+|vector_default_config_file|Файл конфигруации по умолчанию для Vector|
+|vector_config_file|Файл конфигурации Vector для запуска сервиса|
+|clickhouse_ipaddress|IP-адрес сервера Clickhouse|
+|vector_config:|Конфигурация Vector|
+
+## Inventory
+Присутствуют две группы хостов:
+- Группа clickhouse
+  - хост clickhouse-01
+- Группа vector
+  - хост vector-01
+
+## Templates
+|Name  |Descriprion  |
+|---------|---------|
+|vector.j2|Шаблон конфигурации по умолчанию Vector|
+|vector.yml.j2|Шаблон конфигурации Vector|
+
+
+## Playbook Plays
 ### Install Clickhouse
 #### Handlers
 |Name  |Descriprion  |
@@ -41,7 +74,11 @@ Configure clickhouse \| Modify clickhouse server config|Настрйка сер�
 Configure clickhouse \| Modify clickhouse client config|Настрйка клиентской конфигурации Clickhouse, включение best_effort для параметра date_time_input_format |
 Configure clickhouse \| Open clickhouse port on firewalld| Открытие порта 8123/tcp для доступа к Clickhouse извне|
 
-
+### Install Vector
+#### Handlers
+|Name  |Descriprion  |
+|---------|---------|
+|Restart Vector service|Перезапуск сервера Vector|
 
 
 
@@ -50,8 +87,16 @@ Configure clickhouse \| Open clickhouse port on firewalld| Открытие по
 |---------|---------|
 Install vector \| Download vector distrib|Скачивание дистрибутивов
 Install vector \| Install vector package|Установка дистрибутивов
-Install vector \| Delete default vector config|Удаление конфигурации по умолчанию(/etc/)
-Install vector \| Set default vector config file for service
-Install vector \| Vector config from template
-Install vector \| Flush handlers
-Install vector \| Check if vector started
+Install vector \| Delete default vector config|Удаление конфигурации по умолчанию(/etc/vector/vector.toml)
+Install vector \| Set default vector config file for service|Установка конфигурации сервиса Vector по умолчанию|
+Install vector \| Vector config from template|Настройка конфигурации сервиса Vector|
+Install vector \| Flush handlers|Вызов handler для запуска сервиса|
+Install vector \| Check if vector started|Проверка запуска сервиса|
+
+
+### Playbook Tags
+|Name  |Descriprion  |
+|---------|---------|
+|clickhouse_install|Установка Clickhouse|
+|clickhouse_config|Настройка Clickhouse|
+|vector_install|Установка и настройка Vector|
