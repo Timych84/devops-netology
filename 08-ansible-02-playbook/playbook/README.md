@@ -7,6 +7,7 @@
 - Install Clickhouse (Скачивание и первичная настройка Clickhouse)
 - Configure Сlickhouse (Настройка Clickhouse для приема логов из Vector)
 - Install Vector (Скачивание и настройка Vector)
+---
 ## Variables
 /group_vars/clickhouse/vars.yml:
 |Name  |Descriprion  |
@@ -26,21 +27,21 @@
 |vector_config_file|Файл конфигурации Vector для запуска сервиса|
 |clickhouse_ipaddress|IP-адрес сервера Clickhouse|
 |vector_config:|Конфигурация Vector|
-
+---
 ## Inventory
 Присутствуют две группы хостов:
 - Группа clickhouse
   - хост clickhouse-01
 - Группа vector
   - хост vector-01
-
+---
 ## Templates
 |Name  |Descriprion  |
 |---------|---------|
 |vector.j2|Шаблон конфигурации по умолчанию Vector|
 |vector.yml.j2|Шаблон конфигурации Vector|
 
-
+---
 ## Playbook Plays
 ### Install Clickhouse
 #### Handlers
@@ -93,7 +94,7 @@ Install vector \| Vector config from template|Настройка конфигу�
 Install vector \| Flush handlers|Вызов handler для запуска сервиса|
 Install vector \| Check if vector started|Проверка запуска сервиса|
 
-
+---
 ### Playbook Tags
 |Name  |Descriprion  |
 |---------|---------|
