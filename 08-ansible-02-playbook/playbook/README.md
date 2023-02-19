@@ -33,11 +33,13 @@ Install Clickhouse \| Create database|Создание БД logs|
 #### Tasks
 |Name  |Descriprion  |
 |---------|---------|
-Install Clickhouse \| Download clickhouse distrib|Скачивание дистрибутивов
-Install Clickhouse \| Install clickhouse packages|Установка дистрибутивов
-Install Clickhouse \| Flush handlers|Вызов handler для запуска сервиса
-Install Clickhouse \| Check if Clickhouse started|Проверка запуска сервиса
-Install Clickhouse \| Create database|Создание БД logs
+Configure clickhouse \| Install epel|Настройка репозиотрия EPEL|
+Configure clickhouse \| Install python-pip|Установка Python Pip|
+Configure clickhouse \| Install pip lxml|Установка модуля lxml|
+Configure clickhouse \| Create table for syslog|Создание таблицы journald для данных из Vector|
+Configure clickhouse \| Modify clickhouse server config|Настрйка серверной конфигурации Clickhouse для прослушивания ip-адреса {{ clickhouse_server_listen_ip_address }}|
+Configure clickhouse \| Modify clickhouse client config|Настрйка клиентской конфигурации Clickhouse, включение best_effort для параметра date_time_input_format |
+Configure clickhouse \| Open clickhouse port on firewalld| Открытие порта 8123/tcp для доступа к Clickhouse извне|
 
 
 
