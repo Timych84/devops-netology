@@ -114,8 +114,6 @@
         name: vector
         state: restarted
         enabled: true
-      environment:
-        VECTOR_CONFIG: /etc/vector/vector.yaml
   tasks:
     - name: Install vector | Download vector distrib
       ansible.builtin.get_url:
