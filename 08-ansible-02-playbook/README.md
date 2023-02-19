@@ -6,6 +6,8 @@
 4. Tasks должны: скачать нужной версии дистрибутив, выполнить распаковку в выбранную директорию, установить vector.
 5. Запустите `ansible-lint site.yml` и исправьте ошибки, если они есть.
 
+<details>
+    <summary>ansible-lint</summary>
 
 ```bash
 timych@timych-ubu2:~/clickhouse_n_vector/playbook$ ansible-lint site.yml
@@ -26,10 +28,15 @@ warn_list:  # or 'skip_list' to silence them completely
 Failed after min profile: 1 failure(s), 0 warning(s) on 1 files.
 ...
 ```
+</details>
+
 Добавил name: `- name: Install Clickhouse | Download clickhouse block` для блока скачивания дистрибутивов Clickhouse
 
 6. Попробуйте запустить playbook на этом окружении с флагом `--check`.
 
+
+<details>
+<summary>ansible-playbook -i inventory/prod.yml site.yml --check</summary>
 
 ```bash
 timych@timych-ubu2:~/clickhouse_n_vector/playbook$ ansible-playbook -i inventory/prod.yml site.yml --check
@@ -129,8 +136,13 @@ clickhouse-01              : ok=12   changed=4    unreachable=0    failed=0    s
 vector-01                  : ok=6    changed=3    unreachable=0    failed=1    skipped=0    rescued=0    ignored=1
 ```
 
+</details>
 
 7. Запустите playbook на `prod.yml` окружении с флагом `--diff`. Убедитесь, что изменения на системе произведены.
+
+
+<details>
+<summary>ansible-playbook -i inventory/prod.yml site.yml --diff</summary>
 
 
 ```bash
@@ -294,11 +306,15 @@ PLAY RECAP *********************************************************************
 clickhouse-01              : ok=16   changed=13   unreachable=0    failed=0    skipped=0    rescued=1    ignored=0
 vector-01                  : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
+</details>
+
 
 
 
 8. Повторно запустите playbook с флагом `--diff` и убедитесь, что playbook идемпотентен.
 
+<details>
+<summary>ansible-playbook -i inventory/prod.yml site.yml --diff</summary>
 
 ```bash
 timych@timych-ubu2:~/clickhouse_n_vector/playbook$ ansible-playbook -i inventory/prod.yml site.yml --diff
@@ -382,11 +398,12 @@ PLAY RECAP *********************************************************************
 clickhouse-01              : ok=13   changed=0    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0
 vector-01                  : ok=7    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
-
-
+</details>
 
 9.  Подготовьте README.md файл по своему playbook. В нём должно быть описано: что делает playbook, какие у него есть параметры и теги.
-10. Готовый playbook выложите в свой репозиторий, поставьте тег `08-ansible-02-playbook` на фиксирующий коммит, в ответ предоставьте ссылку на него.
+10.  Готовый playbook выложите в свой репозиторий, поставьте тег `08-ansible-02-playbook` на фиксирующий коммит, в ответ предоставьте ссылку на него.
+
+
 
 ---
 
