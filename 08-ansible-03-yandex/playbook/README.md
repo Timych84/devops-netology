@@ -125,7 +125,6 @@ Install vector \| Check if vector started|Проверка запуска сер
 Install lighthouse \| Install epel repo|Настройка репозиотрия EPEL|
 Install lighthouse \| Install nginx, git and firewalld|Установка nginx, git и службы firewalld|
 Install lighthouse \| Flush handlers|Вызов handler для запуска сервиса|
-|Установка модуля lxml|
 Install lighthouse \| Clone a lighthouse repo|Клонирование репозитория lighthouse во временный каталог|
 Install lighthouse \| Copy lighthouse to site folder| Копирование сайта в каталог сайта nginx с нужными правами|
 Install lighthouse \| Configure SELinux for nginx|Настрйка контекста SELinux для файлов сайта|
