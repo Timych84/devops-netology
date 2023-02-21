@@ -1,0 +1,7 @@
+---
+%{ for index, label in vm-labels ~}
+${label}:
+  hosts:
+    ${vms[index]}:
+      ansible_host: ${ips[index]}
+%{ endfor ~}
