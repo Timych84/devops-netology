@@ -14,6 +14,11 @@
 
 1. Найдите, где перечислены все доступные `resource` и `data_source`, приложите ссылку на эти строки в коде на
 гитхабе.
+
+https://github.com/hashicorp/terraform-provider-aws/blob/453a3bf86ca3333e9ccefc9c332a82e08797b1e8/internal/provider/provider.go#L934
+
+https://github.com/hashicorp/terraform-provider-aws/blob/453a3bf86ca3333e9ccefc9c332a82e08797b1e8/internal/provider/provider.go#L417
+
 1. Для создания очереди сообщений SQS используется ресурс `aws_sqs_queue` у которого есть параметр `name`.
     * С каким другим параметром конфликтует `name`? Приложите строчку кода, в которой это указано.
 
