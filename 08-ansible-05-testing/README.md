@@ -242,10 +242,11 @@ verifier:
 
 verify.yml выполняется на стороне контейнера с clickhouse и проверяет приходят ли логи от Vector запросом к соответствующей таблице, а также curl к Lighthouse на предмет проверки работоспособности nginx.
 
-- verify.yml
-
+- verify.yml:
 ```yml
 ---
+# This is an example playbook to execute Ansible tests.
+
 - name: Verify
   hosts: all
   gather_facts: true
@@ -257,29 +258,29 @@ verify.yml выполняется на стороне контейнера с cl
   hosts: clickhouse
   gather_facts: true
   tasks:
-    - name: Verify clickhouse | Select count from table for syslog
+    - name: Verify stack | Select count from table for syslog
       ansible.builtin.command: "clickhouse-client -q '{{ clickhouse_syslog_select_table_query }}'"
       register: create_db
       changed_when: create_db.rc == 0
-    - name: Print count
+    - name: Verify stack | Print logs count
       ansible.builtin.debug:
         var: create_db.stdout
-    - name: Pause for 10 minutes for additional log entries
+    - name: Verify stack | Pause for 10 seconds for additional log entries
       ansible.builtin.pause:
         seconds: 10
-    - name: Verify clickhouse | Select count from table for syslog
+    - name: Verify stack | Select count from table for syslog
       ansible.builtin.command: "clickhouse-client -q '{{ clickhouse_syslog_select_table_query }}'"
       register: create_db_2
       changed_when: create_db_2.rc == 0
-    - name: Print count
+    - name: Verify stack | Print logs count after pause
       ansible.builtin.debug:
         var: create_db_2.stdout
-    - name: Check if variables are equal
+    - name: Verify stack | Check if later log count larger than earlier log count
       ansible.builtin.assert:
         that:
           - create_db_2.stdout > create_db.stdout
         fail_msg: "Later log count not larger than earlier log count"
-    - name: Verify lighthouse | curl from clickhouse to lighthouse
+    - name: Verify stack | curl from clickhouse to lighthouse
       ansible.builtin.uri:
         url: "http://{{ hostvars['lighthouse']['ansible_default_ipv4']['address'] }}"
 ```
@@ -918,7 +919,7 @@ verify.yml выполняется на стороне контейнера с cl
 
   </details>
 
-1. Выложите свои roles в репозитории.
+4. Выложите свои roles в репозитории.
 
 [Роль vector со сценариями тестирования](https://github.com/Timych84/vector-role)
 
