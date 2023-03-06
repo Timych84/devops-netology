@@ -22,9 +22,9 @@
 5. Запустите тестирование роли повторно и проверьте, что оно прошло успешно.
 5. Добавьте новый тег на коммит с рабочим сценарием в соответствии с семантическим версионированием.
 
-[Роль vector со сценариями тестирования](https://github.com/Timych84/vector-role)
+- [Роль vector со сценариями тестирования](https://github.com/Timych84/vector-role)
 
-[Журнал выполнения всех тестов](https://github.com/Timych84/devops-netology/tree/main/08-ansible-05-testing/vector_role_molecule_test.log)
+- [Журнал выполнения всех тестов](https://github.com/Timych84/devops-netology/tree/main/08-ansible-05-testing/vector_role_molecule_test.log)
 
 ### Tox
 
@@ -922,11 +922,13 @@ verify.yml выполняется на стороне контейнера с cl
 4. Выложите свои roles в репозитории.
 
 
-[Роль vector со сценариями тестирования](https://github.com/Timych84/vector-role)
+- [Роль vector со сценариями тестирования](https://github.com/Timych84/vector-role)
 
-[Роль lighthouse со сценариями тестирования](https://github.com/Timych84/lighthouse_role)
+- [Журнал выполнения всех тестов](https://github.com/Timych84/devops-netology/tree/main/08-ansible-05-testing/lighthouse_role_molecule_test.log)
 
-[Плейбук со сценарием тестирования стека Clickhouse-Vector-Lighthouse](https://github.com/Timych84/devops-netology/tree/main/08-ansible-05-testing/playbook)
+- [Роль lighthouse со сценариями тестирования](https://github.com/Timych84/lighthouse_role)
+
+- [Плейбук со сценарием тестирования стека Clickhouse-Vector-Lighthouse](https://github.com/Timych84/devops-netology/tree/main/08-ansible-05-testing/playbook)
 
 
 В качестве решения пришлите ссылки и скриншоты этапов выполнения задания.

@@ -1,0 +1,1172 @@
+++ molecule test -s centos7
+INFO     centos7 scenario test matrix: dependency, lint, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
+INFO     Performing prerun...
+INFO     Set ANSIBLE_LIBRARY=/home/timych/.cache/ansible-compat/62f098/modules:/home/timych/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/home/timych/.cache/ansible-compat/62f098/collections:/home/timych/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/home/timych/.cache/ansible-compat/62f098/roles:/home/timych/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > dependency
+WARNING  Skipping, missing the requirements file.
+WARNING  Skipping, missing the requirements file.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > lint
+COMMAND: yamllint .
+ansible-lint
+flake8
+
+WARNING: ansible-lint is no longer tested under Python 3.8 and will soon require 3.9. Do not report bugs for this version.
+WARNING  Ignore loading rule from /home/timych/.local/lib/python3.8/site-packages/ansiblelint/rules/role_name.py due to cannot import name 'cache' from 'functools' (/usr/lib/python3.8/functools.py)
+WARNING  Computed fully qualified role name of lighthouse-role does not follow current galaxy requirements.
+Please edit meta/main.yml and assure we can correctly determine full role name:
+
+galaxy_info:
+role_name: my_name  # if absent directory name hosting role is used instead
+namespace: my_galaxy_namespace  # if absent, author is used instead
+
+Namespace: https://galaxy.ansible.com/docs/contributing/namespaces.html#galaxy-namespace-limitations
+Role: https://galaxy.ansible.com/docs/contributing/creating_role.html#role-names
+
+As an alternative, you can add 'role-name' to either skip_list or warn_list.
+
+WARNING  Listing 1 violation(s) that are fatal
+schema[inventory]: None is not of type 'object' (warning)
+molecule/resources/inventory/hosts.yml:1  Returned errors will not include exact line numbers, but they will mention
+the schema name being used as a tag, like ``schema[playbook]``,
+``schema[tasks]``.
+
+This rule is not skippable and stops further processing of the file.
+
+If incorrect schema was picked, you might want to either:
+
+* move the file to standard location, so its file is detected correctly.
+* use ``kinds:`` option in linter config to help it pick correct file type.
+
+
+You can skip specific rules or tags by adding them to your configuration file:
+# .config/ansible-lint.yml
+warn_list:  # or 'skip_list' to silence them completely
+  - experimental  # all rules tagged as experimental
+
+                    Rule Violation Summary
+ count tag               profile rule associated tags
+     1 schema[inventory] basic   core, experimental (warning)
+
+Passed with min profile: 0 failure(s), 1 warning(s) on 33 files.
+A new release of ansible-lint is available: 6.12.2  6.14.0
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > destroy
+INFO     Sanity checks: 'docker'
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=centos7)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
+ok: [localhost] => (item=centos7)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > syntax
+
+playbook: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/converge.yml
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > create
+
+PLAY [Create] ******************************************************************
+
+TASK [Log into a Docker registry] **********************************************
+skipping: [localhost] => (item=None)
+skipping: [localhost]
+
+TASK [Check presence of custom Dockerfiles] ************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos7', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Create Dockerfiles from image names] *************************************
+changed: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos7', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Discover local Docker images] ********************************************
+ok: [localhost] => (item={'diff': [], 'dest': '/home/timych/.cache/molecule/lighthouse-role/centos7/Dockerfile_centos_7', 'src': '/home/timych/.ansible/tmp/ansible-tmp-1678105449.4991944-130060-129420075693342/source', 'md5sum': '31351494d15c9d2e4048ba373fdb0c61', 'checksum': '09587a5a0380ebb02d112bf6519f22dd95746d56', 'changed': True, 'uid': 1000, 'gid': 1000, 'owner': 'timych', 'group': 'timych', 'mode': '0600', 'state': 'file', 'size': 2196, 'invocation': {'module_args': {'src': '/home/timych/.ansible/tmp/ansible-tmp-1678105449.4991944-130060-129420075693342/source', 'dest': '/home/timych/.cache/molecule/lighthouse-role/centos7/Dockerfile_centos_7', 'mode': '0600', 'follow': False, '_original_basename': 'Dockerfile.j2', 'checksum': '09587a5a0380ebb02d112bf6519f22dd95746d56', 'backup': False, 'force': True, 'unsafe_writes': False, 'content': None, 'validate': None, 'directory_mode': None, 'remote_src': None, 'local_follow': None, 'owner': None, 'group': None, 'seuser': None, 'serole': None, 'selevel': None, 'setype': None, 'attributes': None}}, 'failed': False, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos7', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item', 'i': 0, 'ansible_index_var': 'i'})
+
+TASK [Build an Ansible compatible image (new)] *********************************
+ok: [localhost] => (item=molecule_local/centos:7)
+
+TASK [Create docker network(s)] ************************************************
+
+TASK [Determine the CMD directives] ********************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos7', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Create molecule instance(s)] *********************************************
+changed: [localhost] => (item=centos7)
+
+TASK [Wait for instance(s) creation to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) creation to complete (300 retries left).
+changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': '418517434120.130201', 'results_file': '/home/timych/.ansible_async/418517434120.130201', 'changed': True, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos7', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > converge
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [centos7]
+
+TASK [Include lighthouse-role] *************************************************
+
+TASK [lighthouse-role : Install Lighthouse | Include pkg_mgr tasks] ************
+included: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/tasks/install/yum.yml for centos7
+
+TASK [lighthouse-role : Install lighthouse | Set Nginx user] *******************
+ok: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Install epel repo] ****************
+changed: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Install nginx, git, rsync and firewalld] ***
+changed: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Flush handlers] *******************
+
+RUNNING HANDLER [lighthouse-role : Restart nginx service] **********************
+changed: [centos7]
+
+RUNNING HANDLER [lighthouse-role : Restart firewalld service] ******************
+changed: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Clone a lighthouse repo] **********
+changed: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Copy lighthouse to site folder] ***
+changed: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Test whether SELinux is enabled] ***
+fatal: [centos7]: FAILED! => {"changed": false, "cmd": "/usr/sbin/selinuxenabled", "msg": "[Errno 2] No such file or directory", "rc": 2, "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [lighthouse-role : Install lighthouse | Configure SELinux for nginx] ******
+skipping: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Open http/s port on firewalld] ****
+changed: [centos7] => (item=http)
+changed: [centos7] => (item=https)
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx main config file] ***
+changed: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx lighthouse config file] ***
+changed: [centos7]
+
+RUNNING HANDLER [lighthouse-role : Reload nginx service] ***********************
+changed: [centos7]
+
+PLAY RECAP *********************************************************************
+centos7                    : ok=14   changed=10   unreachable=0    failed=0    skipped=1    rescued=0    ignored=1
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > idempotence
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [centos7]
+
+TASK [Include lighthouse-role] *************************************************
+
+TASK [lighthouse-role : Install Lighthouse | Include pkg_mgr tasks] ************
+included: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/tasks/install/yum.yml for centos7
+
+TASK [lighthouse-role : Install lighthouse | Set Nginx user] *******************
+ok: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Install epel repo] ****************
+ok: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Install nginx, git, rsync and firewalld] ***
+ok: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Flush handlers] *******************
+
+TASK [lighthouse-role : Install lighthouse | Clone a lighthouse repo] **********
+ok: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Copy lighthouse to site folder] ***
+ok: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Test whether SELinux is enabled] ***
+fatal: [centos7]: FAILED! => {"changed": false, "cmd": "/usr/sbin/selinuxenabled", "msg": "[Errno 2] No such file or directory", "rc": 2, "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [lighthouse-role : Install lighthouse | Configure SELinux for nginx] ******
+skipping: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Open http/s port on firewalld] ****
+ok: [centos7] => (item=http)
+ok: [centos7] => (item=https)
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx main config file] ***
+ok: [centos7]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx lighthouse config file] ***
+ok: [centos7]
+
+PLAY RECAP *********************************************************************
+centos7                    : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=1
+
+INFO     Idempotence completed successfully.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > side_effect
+WARNING  Skipping, side effect playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > verify
+INFO     Running Ansible Verifier
+
+PLAY [Verify] ******************************************************************
+
+TASK [Verify lighthouse | Check if vector started] *****************************
+ok: [centos7]
+
+TASK [Example assertion] *******************************************************
+ok: [centos7] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Verify lighthouse | Validate lighthouse nginx config] ********************
+ok: [centos7]
+
+TASK [Verify lighthouse | Assert lighthouse validate] **************************
+ok: [centos7] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY RECAP *********************************************************************
+centos7                    : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Verifier completed successfully.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos7/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos7/inventory/host_vars
+INFO     Running centos7 > destroy
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=centos7)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
+changed: [localhost] => (item=centos7)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Pruning extra files from scenario ephemeral directory
+++ molecule test -s centos8
+INFO     centos8 scenario test matrix: dependency, lint, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
+INFO     Performing prerun...
+INFO     Set ANSIBLE_LIBRARY=/home/timych/.cache/ansible-compat/62f098/modules:/home/timych/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/home/timych/.cache/ansible-compat/62f098/collections:/home/timych/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/home/timych/.cache/ansible-compat/62f098/roles:/home/timych/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > dependency
+WARNING  Skipping, missing the requirements file.
+WARNING  Skipping, missing the requirements file.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > lint
+COMMAND: yamllint .
+ansible-lint
+flake8
+
+WARNING: ansible-lint is no longer tested under Python 3.8 and will soon require 3.9. Do not report bugs for this version.
+WARNING  Ignore loading rule from /home/timych/.local/lib/python3.8/site-packages/ansiblelint/rules/role_name.py due to cannot import name 'cache' from 'functools' (/usr/lib/python3.8/functools.py)
+WARNING  Computed fully qualified role name of lighthouse-role does not follow current galaxy requirements.
+Please edit meta/main.yml and assure we can correctly determine full role name:
+
+galaxy_info:
+role_name: my_name  # if absent directory name hosting role is used instead
+namespace: my_galaxy_namespace  # if absent, author is used instead
+
+Namespace: https://galaxy.ansible.com/docs/contributing/namespaces.html#galaxy-namespace-limitations
+Role: https://galaxy.ansible.com/docs/contributing/creating_role.html#role-names
+
+As an alternative, you can add 'role-name' to either skip_list or warn_list.
+
+WARNING  Listing 1 violation(s) that are fatal
+schema[inventory]: None is not of type 'object' (warning)
+molecule/resources/inventory/hosts.yml:1  Returned errors will not include exact line numbers, but they will mention
+the schema name being used as a tag, like ``schema[playbook]``,
+``schema[tasks]``.
+
+This rule is not skippable and stops further processing of the file.
+
+If incorrect schema was picked, you might want to either:
+
+* move the file to standard location, so its file is detected correctly.
+* use ``kinds:`` option in linter config to help it pick correct file type.
+
+
+You can skip specific rules or tags by adding them to your configuration file:
+# .config/ansible-lint.yml
+warn_list:  # or 'skip_list' to silence them completely
+  - experimental  # all rules tagged as experimental
+
+                    Rule Violation Summary
+ count tag               profile rule associated tags
+     1 schema[inventory] basic   core, experimental (warning)
+
+Passed with min profile: 0 failure(s), 1 warning(s) on 33 files.
+A new release of ansible-lint is available: 6.12.2  6.14.0
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > destroy
+INFO     Sanity checks: 'docker'
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=centos8)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
+ok: [localhost] => (item=centos8)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > syntax
+
+playbook: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/converge.yml
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > create
+
+PLAY [Create] ******************************************************************
+
+TASK [Log into a Docker registry] **********************************************
+skipping: [localhost] => (item=None)
+skipping: [localhost]
+
+TASK [Check presence of custom Dockerfiles] ************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'OSTYPE': 'CENTOS8', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:8', 'name': 'centos8', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Create Dockerfiles from image names] *************************************
+changed: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'OSTYPE': 'CENTOS8', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:8', 'name': 'centos8', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Discover local Docker images] ********************************************
+ok: [localhost] => (item={'diff': [], 'dest': '/home/timych/.cache/molecule/lighthouse-role/centos8/Dockerfile_centos_8', 'src': '/home/timych/.ansible/tmp/ansible-tmp-1678105536.4587076-136099-155936277323504/source', 'md5sum': '5c6d402ef4aab89535a29991a8a01fab', 'checksum': 'a30aacde02669fe41a369012bf0ce10126f651aa', 'changed': True, 'uid': 1000, 'gid': 1000, 'owner': 'timych', 'group': 'timych', 'mode': '0600', 'state': 'file', 'size': 2413, 'invocation': {'module_args': {'src': '/home/timych/.ansible/tmp/ansible-tmp-1678105536.4587076-136099-155936277323504/source', 'dest': '/home/timych/.cache/molecule/lighthouse-role/centos8/Dockerfile_centos_8', 'mode': '0600', 'follow': False, '_original_basename': 'Dockerfile.j2', 'checksum': 'a30aacde02669fe41a369012bf0ce10126f651aa', 'backup': False, 'force': True, 'unsafe_writes': False, 'content': None, 'validate': None, 'directory_mode': None, 'remote_src': None, 'local_follow': None, 'owner': None, 'group': None, 'seuser': None, 'serole': None, 'selevel': None, 'setype': None, 'attributes': None}}, 'failed': False, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'OSTYPE': 'CENTOS8', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:8', 'name': 'centos8', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item', 'i': 0, 'ansible_index_var': 'i'})
+
+TASK [Build an Ansible compatible image (new)] *********************************
+ok: [localhost] => (item=molecule_local/centos:8)
+
+TASK [Create docker network(s)] ************************************************
+
+TASK [Determine the CMD directives] ********************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'OSTYPE': 'CENTOS8', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:8', 'name': 'centos8', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Create molecule instance(s)] *********************************************
+changed: [localhost] => (item=centos8)
+
+TASK [Wait for instance(s) creation to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) creation to complete (300 retries left).
+changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': '657615200724.136239', 'results_file': '/home/timych/.ansible_async/657615200724.136239', 'changed': True, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'OSTYPE': 'CENTOS8', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:8', 'name': 'centos8', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > converge
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [centos8]
+
+TASK [Include lighthouse-role] *************************************************
+
+TASK [lighthouse-role : Install Lighthouse | Include pkg_mgr tasks] ************
+included: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/tasks/install/dnf.yml for centos8
+
+TASK [lighthouse-role : Install lighthouse | Set Nginx user] *******************
+ok: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Install epel repo] ****************
+changed: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Install nginx, git, rsync and firewalld] ***
+changed: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Flush handlers] *******************
+
+RUNNING HANDLER [lighthouse-role : Restart nginx service] **********************
+changed: [centos8]
+
+RUNNING HANDLER [lighthouse-role : Restart firewalld service] ******************
+changed: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Clone a lighthouse repo] **********
+changed: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Copy lighthouse to site folder] ***
+changed: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Test whether SELinux is enabled] ***
+fatal: [centos8]: FAILED! => {"changed": false, "cmd": "/usr/sbin/selinuxenabled", "msg": "[Errno 2] No such file or directory: b'/usr/sbin/selinuxenabled': b'/usr/sbin/selinuxenabled'", "rc": 2, "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [lighthouse-role : Install lighthouse | Configure SELinux for nginx] ******
+skipping: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Open http/s port on firewalld] ****
+changed: [centos8] => (item=http)
+changed: [centos8] => (item=https)
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx main config file] ***
+changed: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx lighthouse config file] ***
+changed: [centos8]
+
+RUNNING HANDLER [lighthouse-role : Reload nginx service] ***********************
+changed: [centos8]
+
+PLAY RECAP *********************************************************************
+centos8                    : ok=14   changed=10   unreachable=0    failed=0    skipped=1    rescued=0    ignored=1
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > idempotence
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [centos8]
+
+TASK [Include lighthouse-role] *************************************************
+
+TASK [lighthouse-role : Install Lighthouse | Include pkg_mgr tasks] ************
+included: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/tasks/install/dnf.yml for centos8
+
+TASK [lighthouse-role : Install lighthouse | Set Nginx user] *******************
+ok: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Install epel repo] ****************
+ok: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Install nginx, git, rsync and firewalld] ***
+ok: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Flush handlers] *******************
+
+TASK [lighthouse-role : Install lighthouse | Clone a lighthouse repo] **********
+ok: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Copy lighthouse to site folder] ***
+ok: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Test whether SELinux is enabled] ***
+fatal: [centos8]: FAILED! => {"changed": false, "cmd": "/usr/sbin/selinuxenabled", "msg": "[Errno 2] No such file or directory: b'/usr/sbin/selinuxenabled': b'/usr/sbin/selinuxenabled'", "rc": 2, "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [lighthouse-role : Install lighthouse | Configure SELinux for nginx] ******
+skipping: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Open http/s port on firewalld] ****
+ok: [centos8] => (item=http)
+ok: [centos8] => (item=https)
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx main config file] ***
+ok: [centos8]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx lighthouse config file] ***
+ok: [centos8]
+
+PLAY RECAP *********************************************************************
+centos8                    : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=1
+
+INFO     Idempotence completed successfully.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > side_effect
+WARNING  Skipping, side effect playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > verify
+INFO     Running Ansible Verifier
+
+PLAY [Verify] ******************************************************************
+
+TASK [Verify lighthouse | Check if vector started] *****************************
+ok: [centos8]
+
+TASK [Example assertion] *******************************************************
+ok: [centos8] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Verify lighthouse | Validate lighthouse nginx config] ********************
+ok: [centos8]
+
+TASK [Verify lighthouse | Assert lighthouse validate] **************************
+ok: [centos8] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY RECAP *********************************************************************
+centos8                    : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Verifier completed successfully.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/centos8/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/centos8/inventory/host_vars
+INFO     Running centos8 > destroy
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=centos8)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
+changed: [localhost] => (item=centos8)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Pruning extra files from scenario ephemeral directory
+++ molecule test -s ubuntu_focal
+INFO     ubuntu_focal scenario test matrix: dependency, lint, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
+INFO     Performing prerun...
+INFO     Set ANSIBLE_LIBRARY=/home/timych/.cache/ansible-compat/62f098/modules:/home/timych/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/home/timych/.cache/ansible-compat/62f098/collections:/home/timych/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/home/timych/.cache/ansible-compat/62f098/roles:/home/timych/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > dependency
+WARNING  Skipping, missing the requirements file.
+WARNING  Skipping, missing the requirements file.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > lint
+COMMAND: yamllint .
+ansible-lint
+flake8
+
+WARNING: ansible-lint is no longer tested under Python 3.8 and will soon require 3.9. Do not report bugs for this version.
+WARNING  Ignore loading rule from /home/timych/.local/lib/python3.8/site-packages/ansiblelint/rules/role_name.py due to cannot import name 'cache' from 'functools' (/usr/lib/python3.8/functools.py)
+WARNING  Computed fully qualified role name of lighthouse-role does not follow current galaxy requirements.
+Please edit meta/main.yml and assure we can correctly determine full role name:
+
+galaxy_info:
+role_name: my_name  # if absent directory name hosting role is used instead
+namespace: my_galaxy_namespace  # if absent, author is used instead
+
+Namespace: https://galaxy.ansible.com/docs/contributing/namespaces.html#galaxy-namespace-limitations
+Role: https://galaxy.ansible.com/docs/contributing/creating_role.html#role-names
+
+As an alternative, you can add 'role-name' to either skip_list or warn_list.
+
+WARNING  Listing 1 violation(s) that are fatal
+schema[inventory]: None is not of type 'object' (warning)
+molecule/resources/inventory/hosts.yml:1  Returned errors will not include exact line numbers, but they will mention
+the schema name being used as a tag, like ``schema[playbook]``,
+``schema[tasks]``.
+
+This rule is not skippable and stops further processing of the file.
+
+If incorrect schema was picked, you might want to either:
+
+* move the file to standard location, so its file is detected correctly.
+* use ``kinds:`` option in linter config to help it pick correct file type.
+
+
+You can skip specific rules or tags by adding them to your configuration file:
+# .config/ansible-lint.yml
+warn_list:  # or 'skip_list' to silence them completely
+  - experimental  # all rules tagged as experimental
+
+                    Rule Violation Summary
+ count tag               profile rule associated tags
+     1 schema[inventory] basic   core, experimental (warning)
+
+Passed with min profile: 0 failure(s), 1 warning(s) on 33 files.
+A new release of ansible-lint is available: 6.12.2  6.14.0
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > destroy
+INFO     Sanity checks: 'docker'
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=ubuntu_focal)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
+ok: [localhost] => (item=ubuntu_focal)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > syntax
+
+playbook: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/converge.yml
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > create
+
+PLAY [Create] ******************************************************************
+
+TASK [Log into a Docker registry] **********************************************
+skipping: [localhost] => (item=None)
+skipping: [localhost]
+
+TASK [Check presence of custom Dockerfiles] ************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:focal', 'name': 'ubuntu_focal', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Create Dockerfiles from image names] *************************************
+changed: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:focal', 'name': 'ubuntu_focal', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Discover local Docker images] ********************************************
+ok: [localhost] => (item={'diff': [], 'dest': '/home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/Dockerfile_ubuntu_focal', 'src': '/home/timych/.ansible/tmp/ansible-tmp-1678105633.1926064-142106-11360215547984/source', 'md5sum': '06b41c77fcd1a2807a1cb3e04b376247', 'checksum': '25c3c23a8c5cdfc24b4aeed337190920243f3bb4', 'changed': True, 'uid': 1000, 'gid': 1000, 'owner': 'timych', 'group': 'timych', 'mode': '0600', 'state': 'file', 'size': 2200, 'invocation': {'module_args': {'src': '/home/timych/.ansible/tmp/ansible-tmp-1678105633.1926064-142106-11360215547984/source', 'dest': '/home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/Dockerfile_ubuntu_focal', 'mode': '0600', 'follow': False, '_original_basename': 'Dockerfile.j2', 'checksum': '25c3c23a8c5cdfc24b4aeed337190920243f3bb4', 'backup': False, 'force': True, 'unsafe_writes': False, 'content': None, 'validate': None, 'directory_mode': None, 'remote_src': None, 'local_follow': None, 'owner': None, 'group': None, 'seuser': None, 'serole': None, 'selevel': None, 'setype': None, 'attributes': None}}, 'failed': False, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:focal', 'name': 'ubuntu_focal', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item', 'i': 0, 'ansible_index_var': 'i'})
+
+TASK [Build an Ansible compatible image (new)] *********************************
+ok: [localhost] => (item=molecule_local/ubuntu:focal)
+
+TASK [Create docker network(s)] ************************************************
+
+TASK [Determine the CMD directives] ********************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:focal', 'name': 'ubuntu_focal', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Create molecule instance(s)] *********************************************
+changed: [localhost] => (item=ubuntu_focal)
+
+TASK [Wait for instance(s) creation to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) creation to complete (300 retries left).
+changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': '398678587089.142244', 'results_file': '/home/timych/.ansible_async/398678587089.142244', 'changed': True, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:focal', 'name': 'ubuntu_focal', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > converge
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ubuntu_focal]
+
+TASK [Include lighthouse-role] *************************************************
+
+TASK [lighthouse-role : Install Lighthouse | Include pkg_mgr tasks] ************
+included: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/tasks/install/apt.yml for ubuntu_focal
+
+TASK [lighthouse-role : Install lighthouse | Set Nginx user] *******************
+ok: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Install nginx, git, rsync and firewalld] ***
+changed: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Flush handlers] *******************
+
+RUNNING HANDLER [lighthouse-role : Restart nginx service] **********************
+changed: [ubuntu_focal]
+
+RUNNING HANDLER [lighthouse-role : Restart firewalld service] ******************
+changed: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Clone a lighthouse repo] **********
+changed: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Copy lighthouse to site folder] ***
+changed: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx main config file] ***
+changed: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx lighthouse config file] ***
+changed: [ubuntu_focal]
+
+RUNNING HANDLER [lighthouse-role : Reload nginx service] ***********************
+changed: [ubuntu_focal]
+
+PLAY RECAP *********************************************************************
+ubuntu_focal               : ok=11   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > idempotence
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ubuntu_focal]
+
+TASK [Include lighthouse-role] *************************************************
+
+TASK [lighthouse-role : Install Lighthouse | Include pkg_mgr tasks] ************
+included: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/tasks/install/apt.yml for ubuntu_focal
+
+TASK [lighthouse-role : Install lighthouse | Set Nginx user] *******************
+ok: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Install nginx, git, rsync and firewalld] ***
+ok: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Flush handlers] *******************
+
+TASK [lighthouse-role : Install lighthouse | Clone a lighthouse repo] **********
+ok: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Copy lighthouse to site folder] ***
+ok: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx main config file] ***
+ok: [ubuntu_focal]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx lighthouse config file] ***
+ok: [ubuntu_focal]
+
+PLAY RECAP *********************************************************************
+ubuntu_focal               : ok=8    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Idempotence completed successfully.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > side_effect
+WARNING  Skipping, side effect playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > verify
+INFO     Running Ansible Verifier
+
+PLAY [Verify] ******************************************************************
+
+TASK [Verify lighthouse | Check if vector started] *****************************
+ok: [ubuntu_focal]
+
+TASK [Example assertion] *******************************************************
+ok: [ubuntu_focal] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Verify lighthouse | Validate lighthouse nginx config] ********************
+ok: [ubuntu_focal]
+
+TASK [Verify lighthouse | Assert lighthouse validate] **************************
+ok: [ubuntu_focal] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY RECAP *********************************************************************
+ubuntu_focal               : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Verifier completed successfully.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_focal/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_focal/inventory/host_vars
+INFO     Running ubuntu_focal > destroy
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=ubuntu_focal)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
+changed: [localhost] => (item=ubuntu_focal)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Pruning extra files from scenario ephemeral directory
+++ molecule test -s ubuntu_latest
+INFO     ubuntu_latest scenario test matrix: dependency, lint, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
+INFO     Performing prerun...
+INFO     Set ANSIBLE_LIBRARY=/home/timych/.cache/ansible-compat/62f098/modules:/home/timych/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/home/timych/.cache/ansible-compat/62f098/collections:/home/timych/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/home/timych/.cache/ansible-compat/62f098/roles:/home/timych/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > dependency
+WARNING  Skipping, missing the requirements file.
+WARNING  Skipping, missing the requirements file.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > lint
+COMMAND: yamllint .
+ansible-lint
+flake8
+
+WARNING: ansible-lint is no longer tested under Python 3.8 and will soon require 3.9. Do not report bugs for this version.
+WARNING  Ignore loading rule from /home/timych/.local/lib/python3.8/site-packages/ansiblelint/rules/role_name.py due to cannot import name 'cache' from 'functools' (/usr/lib/python3.8/functools.py)
+WARNING  Computed fully qualified role name of lighthouse-role does not follow current galaxy requirements.
+Please edit meta/main.yml and assure we can correctly determine full role name:
+
+galaxy_info:
+role_name: my_name  # if absent directory name hosting role is used instead
+namespace: my_galaxy_namespace  # if absent, author is used instead
+
+Namespace: https://galaxy.ansible.com/docs/contributing/namespaces.html#galaxy-namespace-limitations
+Role: https://galaxy.ansible.com/docs/contributing/creating_role.html#role-names
+
+As an alternative, you can add 'role-name' to either skip_list or warn_list.
+
+WARNING  Listing 1 violation(s) that are fatal
+schema[inventory]: None is not of type 'object' (warning)
+molecule/resources/inventory/hosts.yml:1  Returned errors will not include exact line numbers, but they will mention
+the schema name being used as a tag, like ``schema[playbook]``,
+``schema[tasks]``.
+
+This rule is not skippable and stops further processing of the file.
+
+If incorrect schema was picked, you might want to either:
+
+* move the file to standard location, so its file is detected correctly.
+* use ``kinds:`` option in linter config to help it pick correct file type.
+
+
+You can skip specific rules or tags by adding them to your configuration file:
+# .config/ansible-lint.yml
+warn_list:  # or 'skip_list' to silence them completely
+  - experimental  # all rules tagged as experimental
+
+                    Rule Violation Summary
+ count tag               profile rule associated tags
+     1 schema[inventory] basic   core, experimental (warning)
+
+Passed with min profile: 0 failure(s), 1 warning(s) on 33 files.
+A new release of ansible-lint is available: 6.12.2  6.14.0
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > destroy
+INFO     Sanity checks: 'docker'
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=ubuntu_latest)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
+ok: [localhost] => (item=ubuntu_latest)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > syntax
+
+playbook: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/converge.yml
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > create
+
+PLAY [Create] ******************************************************************
+
+TASK [Log into a Docker registry] **********************************************
+skipping: [localhost] => (item=None)
+skipping: [localhost]
+
+TASK [Check presence of custom Dockerfiles] ************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:latest', 'name': 'ubuntu_latest', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Create Dockerfiles from image names] *************************************
+changed: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:latest', 'name': 'ubuntu_latest', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Discover local Docker images] ********************************************
+ok: [localhost] => (item={'diff': [], 'dest': '/home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/Dockerfile_ubuntu_latest', 'src': '/home/timych/.ansible/tmp/ansible-tmp-1678105694.218729-148078-162122291692331/source', 'md5sum': '1398fb402467ae49ed2b1568f7c054f1', 'checksum': '8e243c0f336308a5dc3911d3767dc0bc5a8e5fce', 'changed': True, 'uid': 1000, 'gid': 1000, 'owner': 'timych', 'group': 'timych', 'mode': '0600', 'state': 'file', 'size': 2201, 'invocation': {'module_args': {'src': '/home/timych/.ansible/tmp/ansible-tmp-1678105694.218729-148078-162122291692331/source', 'dest': '/home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/Dockerfile_ubuntu_latest', 'mode': '0600', 'follow': False, '_original_basename': 'Dockerfile.j2', 'checksum': '8e243c0f336308a5dc3911d3767dc0bc5a8e5fce', 'backup': False, 'force': True, 'unsafe_writes': False, 'content': None, 'validate': None, 'directory_mode': None, 'remote_src': None, 'local_follow': None, 'owner': None, 'group': None, 'seuser': None, 'serole': None, 'selevel': None, 'setype': None, 'attributes': None}}, 'failed': False, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:latest', 'name': 'ubuntu_latest', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item', 'i': 0, 'ansible_index_var': 'i'})
+
+TASK [Build an Ansible compatible image (new)] *********************************
+ok: [localhost] => (item=molecule_local/ubuntu:latest)
+
+TASK [Create docker network(s)] ************************************************
+
+TASK [Determine the CMD directives] ********************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:latest', 'name': 'ubuntu_latest', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+
+TASK [Create molecule instance(s)] *********************************************
+changed: [localhost] => (item=ubuntu_latest)
+
+TASK [Wait for instance(s) creation to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) creation to complete (300 retries left).
+changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': '506500400488.148218', 'results_file': '/home/timych/.ansible_async/506500400488.148218', 'changed': True, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'ubuntu:latest', 'name': 'ubuntu_latest', 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > converge
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ubuntu_latest]
+
+TASK [Include lighthouse-role] *************************************************
+
+TASK [lighthouse-role : Install Lighthouse | Include pkg_mgr tasks] ************
+included: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/tasks/install/apt.yml for ubuntu_latest
+
+TASK [lighthouse-role : Install lighthouse | Set Nginx user] *******************
+ok: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Install nginx, git, rsync and firewalld] ***
+changed: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Flush handlers] *******************
+
+RUNNING HANDLER [lighthouse-role : Restart nginx service] **********************
+changed: [ubuntu_latest]
+
+RUNNING HANDLER [lighthouse-role : Restart firewalld service] ******************
+changed: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Clone a lighthouse repo] **********
+changed: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Copy lighthouse to site folder] ***
+changed: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx main config file] ***
+changed: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx lighthouse config file] ***
+changed: [ubuntu_latest]
+
+RUNNING HANDLER [lighthouse-role : Reload nginx service] ***********************
+changed: [ubuntu_latest]
+
+PLAY RECAP *********************************************************************
+ubuntu_latest              : ok=11   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > idempotence
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ubuntu_latest]
+
+TASK [Include lighthouse-role] *************************************************
+
+TASK [lighthouse-role : Install Lighthouse | Include pkg_mgr tasks] ************
+included: /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/tasks/install/apt.yml for ubuntu_latest
+
+TASK [lighthouse-role : Install lighthouse | Set Nginx user] *******************
+ok: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Install nginx, git, rsync and firewalld] ***
+ok: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Flush handlers] *******************
+
+TASK [lighthouse-role : Install lighthouse | Clone a lighthouse repo] **********
+ok: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Copy lighthouse to site folder] ***
+ok: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx main config file] ***
+ok: [ubuntu_latest]
+
+TASK [lighthouse-role : Install lighthouse | Rewrite nginx lighthouse config file] ***
+ok: [ubuntu_latest]
+
+PLAY RECAP *********************************************************************
+ubuntu_latest              : ok=8    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Idempotence completed successfully.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > side_effect
+WARNING  Skipping, side effect playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > verify
+INFO     Running Ansible Verifier
+
+PLAY [Verify] ******************************************************************
+
+TASK [Verify lighthouse | Check if vector started] *****************************
+ok: [ubuntu_latest]
+
+TASK [Example assertion] *******************************************************
+ok: [ubuntu_latest] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Verify lighthouse | Validate lighthouse nginx config] ********************
+ok: [ubuntu_latest]
+
+TASK [Verify lighthouse | Assert lighthouse validate] **************************
+ok: [ubuntu_latest] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY RECAP *********************************************************************
+ubuntu_latest              : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Verifier completed successfully.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/hosts.yml linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/hosts
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/group_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/group_vars
+INFO     Inventory /home/timych/roles_clickhouse_vector_lighthouse/playbook/roles/lighthouse-role/molecule/ubuntu_latest/../resources/inventory/host_vars/ linked to /home/timych/.cache/molecule/lighthouse-role/ubuntu_latest/inventory/host_vars
+INFO     Running ubuntu_latest > destroy
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=ubuntu_latest)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
+changed: [localhost] => (item=ubuntu_latest)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Pruning extra files from scenario ephemeral directory
