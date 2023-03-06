@@ -24,7 +24,7 @@
 
 [Роль vector со сценариями тестирования](https://github.com/Timych84/vector-role)
 
-
+[Журнал выполнения всех тестов](https://github.com/Timych84/devops-netology/tree/main/08-ansible-05-testing/vector_role_molecule_test.log)
 
 ### Tox
 
@@ -921,11 +921,12 @@ verify.yml выполняется на стороне контейнера с cl
 
 4. Выложите свои roles в репозитории.
 
+
 [Роль vector со сценариями тестирования](https://github.com/Timych84/vector-role)
 
 [Роль lighthouse со сценариями тестирования](https://github.com/Timych84/lighthouse_role)
 
-[Плейбук со сценарием тестирования стека Clickhouse-Vector-Lighthouse]()
+[Плейбук со сценарием тестирования стека Clickhouse-Vector-Lighthouse](https://github.com/Timych84/devops-netology/tree/main/08-ansible-05-testing/playbook)
 
 
 В качестве решения пришлите ссылки и скриншоты этапов выполнения задания.

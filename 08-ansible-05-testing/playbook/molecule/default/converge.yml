@@ -1,0 +1,27 @@
+---
+- name: Install clickhouse
+  hosts: clickhouse
+  tasks:
+    - name: "Include clickhouse role"
+      ansible.builtin.include_role:
+        name: clickhouse
+  post_tasks:
+    - name: Configure clickhouse | Create table for syslog
+      ansible.builtin.command: "clickhouse-client -q '{{ clickhouse_syslog_create_table_query }}'"
+      register: create_tbl
+      failed_when: create_tbl.rc != 0 and create_db.rc != 57
+      changed_when: create_tbl.rc == 0
+- name: Install lighthouse
+  hosts: lighthouse
+  tasks:
+    - name: "Include lighthouse role"
+      ansible.builtin.include_role:
+        name: lighthouse-role
+- name: Install Vector
+  hosts: vector
+  vars:
+    clickhouse_ipaddress: "{{ hostvars['clickhouse']['ansible_default_ipv4']['address'] }}"
+  tasks:
+    - name: "Include vector role"
+      ansible.builtin.include_role:
+        name: vector-role

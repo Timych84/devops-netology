@@ -1,0 +1,20 @@
+---
+- name: Install Clickhouse
+  tags: clickhouse_install
+  become: true
+  hosts: clickhouse
+  roles:
+    - clickhouse
+- name: Install Vector
+  tags: vector_install
+  hosts: vector
+  vars:
+    clickhouse_ipaddress: "{{ hostvars['prod-server-clickhouse-01']['ansible_default_ipv4']['address'] }}"
+  roles:
+    - vector-role
+- name: Install lighthouse
+  tags: lighthouse_install
+  become: true
+  hosts: lighthouse
+  roles:
+    - lighthouse-role

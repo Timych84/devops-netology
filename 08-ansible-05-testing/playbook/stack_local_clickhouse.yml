@@ -1,0 +1,130 @@
+---
+- name: Install Clickhouse
+  tags: clickhouse_install
+  hosts: clickhouse
+  handlers:
+    - name: Start clickhouse service
+      become: true
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: started
+        enabled: true
+  tasks:
+    - name: Install Clickhouse | Download clickhouse block
+      block:
+        - name: Install Clickhouse | Download clickhouse distrib
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
+            dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
+            mode: '0440'
+          with_items: "{{ clickhouse_packages }}"
+      rescue:
+        - name: Install Clickhouse | Download clickhouse distrib
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
+            dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
+            mode: '0440'
+    - name: Install Clickhouse | Install clickhouse packages
+      become: true
+      ansible.builtin.yum:
+        name:
+          - clickhouse-common-static-{{ clickhouse_version }}.rpm
+          - clickhouse-client-{{ clickhouse_version }}.rpm
+          - clickhouse-server-{{ clickhouse_version }}.rpm
+      notify: Start clickhouse service
+      ignore_errors: "{{ ansible_check_mode }}"
+    - name: Install Clickhouse | Flush handlers
+      ansible.builtin.meta: flush_handlers
+    - name: Install Clickhouse | Check if Clickhouse started
+      ansible.builtin.service_facts:
+      register: temp__service_facts
+      until: temp__service_facts.ansible_facts.services["clickhouse-server.service"].state == 'running'
+      retries: 20
+      delay: 2
+      ignore_errors: "{{ ansible_check_mode }}"
+    - name: Install Clickhouse | Create database
+      ansible.builtin.command: "clickhouse-client  --host 127.0.0.1 -q 'create database logs;'"
+      register: create_db
+      failed_when: create_db.rc != 0 and create_db.rc != 82
+      changed_when: create_db.rc == 0
+- name: Configure Clickhouse
+  tags: clickhouse_config
+  hosts: clickhouse
+  become: true
+  handlers:
+    - name: Restart clickhouse service
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: restarted
+        enabled: true
+      ignore_errors: "{{ ansible_check_mode }}"
+    - name: Restart firewalld service
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+      ignore_errors: "{{ ansible_check_mode }}"
+    - name: Reload firewalld service
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+  tasks:
+    - name: Configure clickhouse | Install epel
+      ansible.builtin.yum:
+        name:
+          - epel-release
+    - name: Configure clickhouse | Install python-pip and firewalld
+      ansible.builtin.yum:
+        name:
+          - python-pip
+          - firewalld
+        state: present
+        update_cache: true
+      ignore_errors: "{{ ansible_check_mode }}"
+      notify: Restart firewalld service
+    - name: Configure clickhouse | Install pip lxml
+      ansible.builtin.pip:
+        name: lxml
+      ignore_errors: "{{ ansible_check_mode }}"
+    - name: Configure clickhouse | Create table for syslog
+      ansible.builtin.command: "clickhouse-client  --host 127.0.0.1 -q '{{ clickhouse_syslog_table_query }}'"
+      register: create_db
+      failed_when: create_db.rc != 0 and create_db.rc != 57
+      changed_when: create_db.rc == 0
+    - name: Configure clickhouse | Modify clickhouse server config
+      community.general.xml:
+        path: "{{ clickhouse_server_config_file }}"
+        xpath: /clickhouse/listen_host
+        value: "{{ clickhouse_server_listen_ip_address }}"
+        state: present
+      notify: Restart clickhouse service
+      ignore_errors: "{{ ansible_check_mode }}"
+    - name: Configure clickhouse | Modify clickhouse client config
+      become: true
+      community.general.xml:
+        path: "{{ clickhouse_client_config_file }}"
+        xpath: /clickhouse/profiles/default/date_time_input_format
+        value: "best_effort"
+        state: present
+      notify: Restart clickhouse service
+      ignore_errors: "{{ ansible_check_mode }}"
+    - name: Configure clickhouse | Open clickhouse port on firewalld
+      ansible.posix.firewalld:
+        port: 8123/tcp
+        permanent: true
+        state: enabled
+      notify: Reload firewalld service
+      ignore_errors: "{{ ansible_check_mode }}"
+- name: Install Vector
+  tags: vector_install
+  hosts: vector
+  vars:
+    clickhouse_ipaddress: "192.168.171.221"
+  roles:
+    - vector-role
+- name: Install lighthouse
+  tags: lighthouse_install
+  become: true
+  hosts: lighthouse
+  roles:
+    - lighthouse-role

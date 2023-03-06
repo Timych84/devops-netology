@@ -1,0 +1,39 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Example assertion
+      ansible.builtin.assert:
+        that: true
+- name: Verify
+  hosts: clickhouse
+  gather_facts: true
+  tasks:
+    - name: Verify stack | Select count from table for syslog
+      ansible.builtin.command: "clickhouse-client -q '{{ clickhouse_syslog_select_table_query }}'"
+      register: create_db
+      changed_when: create_db.rc == 0
+    - name: Verify stack | Print logs count
+      ansible.builtin.debug:
+        var: create_db.stdout
+    - name: Verify stack | Pause for 10 seconds for additional log entries
+      ansible.builtin.pause:
+        seconds: 10
+    - name: Verify stack | Select count from table for syslog
+      ansible.builtin.command: "clickhouse-client -q '{{ clickhouse_syslog_select_table_query }}'"
+      register: create_db_2
+      changed_when: create_db_2.rc == 0
+    - name: Verify stack | Print logs count after pause
+      ansible.builtin.debug:
+        var: create_db_2.stdout
+    - name: Verify stack | Check if later log count larger than earlier log count
+      ansible.builtin.assert:
+        that:
+          - create_db_2.stdout > create_db.stdout
+        fail_msg: "Later log count not larger than earlier log count"
+    - name: Verify stack | curl from clickhouse to lighthouse
+      ansible.builtin.uri:
+        url: "http://{{ hostvars['lighthouse']['ansible_default_ipv4']['address'] }}"

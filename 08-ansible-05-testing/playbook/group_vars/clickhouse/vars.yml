@@ -1,0 +1,38 @@
+---
+# clickhouse_version: "22.3.3.44"
+# clickhouse_packages:
+#   - clickhouse-client
+#   - clickhouse-server
+#   - clickhouse-common-static
+# clickhouse_syslog_table_query: |
+#   CREATE TABLE logs.syslogd (
+#   PRIORITY TINYINT,
+#   SYSLOG_FACILITY TINYINT,
+#   SYSLOG_IDENTIFIER String,
+#   host String,
+#   message String,
+#   source_type String,
+#   timestamp DateTime)
+#   ENGINE = MergeTree
+#   ORDER BY timestamp;
+# clickhouse_server_config_file: "/etc/clickhouse-server/config.xml"
+# clickhouse_client_config_file: "/etc/clickhouse-server/users.xml"
+# clickhouse_server_listen_ip_address: "0.0.0.0"
+clickhouse_listen_host:
+  - "::"
+clickhouse_dbs_custom:
+      - { name: logs }
+clickhouse_profiles_default:
+  default:
+    date_time_input_format: best_effort
+# clickhouse_users_custom:
+#       - { name: "testing",
+#           networks: "{{ clickhouse_networks_default }}",
+#           profile: "default",
+#           quota: "default",
+#           dbs: [ logs ],
+#           password: "testing"}
+clickhouse_networks_default:
+  - "::1"
+  - "127.0.0.1"
+  - "192.168.171.0/24"

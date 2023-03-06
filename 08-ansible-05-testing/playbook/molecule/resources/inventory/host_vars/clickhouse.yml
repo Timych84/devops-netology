@@ -1,0 +1,32 @@
+clickhouse_listen_host:
+  - "0.0.0.0"
+clickhouse_dbs_custom:
+      - { name: logs }
+# clickhouse_users_custom:
+#       - { name: "testing",
+#           networks: "{{ clickhouse_networks_default }}",
+#           profile: "default",
+#           quota: "default",
+#           dbs: [ logs ],
+#           password: "testing"}
+clickhouse_networks_default:
+  - "127.0.0.1"
+  - "172.17.0.0/24"
+clickhouse_profiles_default:
+  default:
+    date_time_input_format: best_effort
+
+clickhouse_syslog_create_table_query:
+  CREATE TABLE logs.syslogd (
+  PRIORITY TINYINT,
+  SYSLOG_FACILITY TINYINT,
+  SYSLOG_IDENTIFIER String,
+  host String,
+  message String,
+  source_type String,
+  timestamp DateTime)
+  ENGINE = MergeTree
+  ORDER BY timestamp;
+
+clickhouse_syslog_select_table_query:
+  select count(*) from logs.syslogd;
