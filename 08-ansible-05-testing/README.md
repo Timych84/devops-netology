@@ -134,7 +134,9 @@ commands =
 
 1. Проделайте схожие манипуляции для создания роли LightHouse.
 
-[Роль lighthouse со сценариями тестирования](https://github.com/Timych84/lighthouse_role)
+- [Роль lighthouse со сценариями тестирования](https://github.com/Timych84/lighthouse_role)
+
+- [Журнал выполнения всех тестов](https://github.com/Timych84/devops-netology/tree/main/08-ansible-05-testing/lighthouse_role_molecule_test.log)
 
 2. Создайте сценарий внутри любой из своих ролей, который умеет поднимать весь стек при помощи всех ролей.
 
@@ -923,8 +925,6 @@ verify.yml выполняется на стороне контейнера с cl
 
 
 - [Роль vector со сценариями тестирования](https://github.com/Timych84/vector-role)
-
-- [Журнал выполнения всех тестов](https://github.com/Timych84/devops-netology/tree/main/08-ansible-05-testing/lighthouse_role_molecule_test.log)
 
 - [Роль lighthouse со сценариями тестирования](https://github.com/Timych84/lighthouse_role)
 
