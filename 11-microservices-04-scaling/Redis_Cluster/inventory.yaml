@@ -1,0 +1,14 @@
+---
+all:
+  hosts:
+    redis-host-1:
+      ansible_host: 192.168.171.101
+    redis-host-2:
+      ansible_host: 192.168.171.102
+    redis-host-3:
+      ansible_host: 192.168.171.103
+redis_cluster:
+  hosts:
+    redis-host-1:
+    redis-host-2:
+    redis-host-3:

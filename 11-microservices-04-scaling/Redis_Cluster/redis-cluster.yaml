@@ -1,0 +1,90 @@
+---
+- name: Install Redis in Docker
+  hosts: redis_cluster
+  become: true
+  tasks:
+    - name: Add Docker GPG apt Key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: Add Docker Repository
+      ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+    - name: Update apt and install docker-ce
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: true
+      with_items:
+        - docker-ce
+        - docker-compose-plugin
+    - name: Install pip
+      ansible.builtin.apt:
+        name: pip
+        state: latest
+        update_cache: true
+    - name: Install Docker Module for Python
+      ansible.builtin.pip:
+        name:
+          - docker
+          - urllib3<2
+    - name: Add the current user to docker group
+      ansible.builtin.user:
+        name: timych
+        append: true
+        groups: docker
+    - name: Start and enable Docker service
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+      tags: docker
+    - name: Copy Redis configuration file
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: /opt/redis/
+        mode: '0644'
+      tags: redis
+      with_items:
+        - ./redis-node-master.conf
+        - ./redis-node-slave.conf
+    - name: Pull Redis Docker image
+      community.docker.docker_image:
+        name: redis
+        source: pull
+      tags: redis
+    - name: Create a volume for Redis master
+      community.docker.docker_volume:
+        name: redis-master-data
+    - name: Create a volume for Redis slave
+      community.docker.docker_volume:
+        name: redis-slave-data
+    - name: Create Redis master container
+      community.docker.docker_container:
+        name: redis_master
+        image: redis
+        state: started
+        ports:
+          - "{{ redis_master_port }}:{{ redis_master_port }}"
+          - "{{ redis_cluster_master_port }}:{{ redis_cluster_master_port }}"
+        restart_policy: always
+        command: redis-server /usr/local/etc/redis/redis.conf
+        volumes:
+          - "/opt/redis/redis-node-master.conf:/usr/local/etc/redis/redis.conf"
+          - redis-master-data:/data
+      tags: redis
+    - name: Create Redis slave container
+      community.docker.docker_container:
+        name: redis_slave
+        image: redis
+        state: started
+        ports:
+          - "{{ redis_slave_port }}:{{ redis_slave_port }}"
+          - "{{ redis_cluster_slave_port }}:{{ redis_cluster_slave_port }}"
+        restart_policy: always
+        command: redis-server /usr/local/etc/redis/redis.conf
+        volumes:
+          - "/opt/redis/redis-node-slave.conf:/usr/local/etc/redis/redis.conf"
+          - redis-slave-data:/data
+      tags: redis

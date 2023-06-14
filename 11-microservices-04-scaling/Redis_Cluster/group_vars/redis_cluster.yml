@@ -1,0 +1,4 @@
+redis_master_port: 6373
+redis_slave_port: 6374
+redis_cluster_master_port: 16373
+redis_cluster_slave_port: 16374
