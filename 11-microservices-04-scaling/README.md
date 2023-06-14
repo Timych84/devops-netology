@@ -460,7 +460,7 @@ OK
 -> Redirected to slot [3168] located at 192.168.171.101:6373
 "6"
 ```
-
+[Playbook](https://github.com/Timych84/devops-netology/tree/main/11-microservices-04-scaling/Redis_Cluster)
 
 
 ### Как оформить ДЗ?
