@@ -1,0 +1,46 @@
+api:
+  enabled: true
+  address: '0.0.0.0:8686'
+sources:
+  docker_app_logs:
+    type: docker_logs
+    exclude_containers:
+      - kibana
+      - es-hot
+      - es-warm
+      - 11-microservices-03-approaches-gateway-1
+transforms:
+  transform_to_elastic:
+    type: remap
+    inputs:
+      - docker_app_logs
+    source: |-
+      . = remove!(value: ., path: ["label"])
+      . = remove!(value: ., path: ["container_id"])
+      . = remove!(value: ., path: ["container_created_at"])
+
+sinks:
+  # console:
+  #   inputs:
+  #     - transform_to_elastic
+  #   target: stdout
+  #   type: console
+  #   encoding:
+  #     codec: json
+
+  docker_logs_sink:
+    type: elasticsearch
+    inputs:
+      - transform_to_elastic
+    api_version: auto
+    compression: none
+    bulk:
+      index: "vector-docker2-%Y.%m.%d"
+    endpoints:
+      - http://es-hot:9200
+    id_key: id
+    mode: bulk
+    auth:
+      user: elastic
+      password: qwerty123456
+      strategy: basic

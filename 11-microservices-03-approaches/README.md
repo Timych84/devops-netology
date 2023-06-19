@@ -117,6 +117,147 @@ docker compose файл, запустив который можно перейт
 Логин в Kibana должен быть admin, пароль qwerty123456.
 
 
+## Решение 4.
+
+Раздел docker-compose.yaml в части логов:
+
+```yml
+#######################  Logging services
+  vector:
+    image: timberio/vector:0.30.0-alpine
+    volumes:
+      - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "8686:8686"
+    command: "-c /etc/vector/vector.yaml"
+    networks:
+      - elastic-net
+  es-hot:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+    container_name: es-hot
+    environment:
+      - node.name=es-hot
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es-warm
+      - cluster.initial_master_nodes=es-hot,es-warm
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=$ELASTIC_SECURITY
+      - ELASTIC_SECURITY=true
+      - ELASTIC_USERNAME=elastic
+      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+    volumes:
+      - es-hot:/usr/share/elasticsearch:Z
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9200:9200
+    networks:
+      - elastic-net
+    depends_on:
+      - es-warm
+  es-warm:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+    container_name: es-warm
+    environment:
+      - node.name=es-warm
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es-hot
+      - cluster.initial_master_nodes=es-hot,es-warm
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=$ELASTIC_SECURITY
+      - ELASTIC_SECURITY=true
+      - ELASTIC_USERNAME=elastic
+      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+    volumes:
+      - es-warm:/usr/share/elasticsearch:Z
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    networks:
+      - elastic-net
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.11.0
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=["http://es-hot:9200","http://es-warm:9200"]
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
+    networks:
+      - elastic-net
+    depends_on:
+      - es-hot
+      - es-warm
+```
+
+Конфигурация vector:
+
+```yml
+api:
+  enabled: true
+  address: '0.0.0.0:8686'
+sources:
+  docker_app_logs:
+    type: docker_logs
+    exclude_containers:
+      - kibana
+      - es-hot
+      - es-warm
+      - 11-microservices-03-approaches-gateway-1
+transforms:
+  transform_to_elastic:
+    type: remap
+    inputs:
+      - docker_app_logs
+    source: |-
+      . = remove!(value: ., path: ["label"])
+      . = remove!(value: ., path: ["container_id"])
+      . = remove!(value: ., path: ["container_created_at"])
+
+sinks:
+  # console:
+  #   inputs:
+  #     - transform_to_elastic
+  #   target: stdout
+  #   type: console
+  #   encoding:
+  #     codec: json
+
+  docker_logs_sink:
+    type: elasticsearch
+    inputs:
+      - transform_to_elastic
+    api_version: auto
+    compression: none
+    bulk:
+      index: "vector-docker2-%Y.%m.%d"
+    endpoints:
+      - http://es-hot:9200
+    id_key: id
+    mode: bulk
+    auth:
+      user: elastic
+      password: qwerty123456
+      strategy: basic
+```
+
+Скриншот из Kibana с отображением логов приложений собранных с помощью Vector:
+ ![](img/kibana.png)
+
+
 ## Задача 5: Мониторинг * (необязательная)
 
 Продолжить работу по задаче API Gateway: сервисы, используемые в задаче, предоставляют набор метрик в формате prometheus:
@@ -132,6 +273,107 @@ docker compose файл, запустив который можно перейт
 
 docker compose файл, запустив который можно перейти по адресу http://localhost:8081, по которому доступна Grafana с настроенным Dashboard.
 Логин в Grafana должен быть admin, пароль qwerty123456.
+
+## Решение 5.
+
+Раздел docker-compose.yaml в части мониторинга:
+```yml
+#######################  Monitoring services
+  prometheus:
+    image: prom/prometheus:v2.44.0
+    container_name: prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus:Z
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    depends_on:
+      - nodeexporter
+    expose:
+      - 9090
+    ports:
+      - 9090:9090
+    networks:
+      - monitor-net
+  nodeexporter:
+    image: prom/node-exporter:v1.6.0
+    container_name: nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    expose:
+      - 9100
+    networks:
+      - monitor-net
+  grafana:
+    image: grafana/grafana:9.5.2
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=$GF_SECURITY_ADMIN_PASSWORD
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    networks:
+      - monitor-net
+```
+
+Конфигурация Prometheus:
+
+```yml
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'nodeexporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['nodeexporter:9100']
+  - job_name: 'uploader'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['uploader:3000']
+    metrics_path: '/metrics'
+
+  - job_name: 'security'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['security:3000']
+    metrics_path: '/metrics'
+
+  - job_name: 'minio'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['api.minio.example.com']
+    metrics_path: '/minio/v2/metrics/cluster'
+```
+Скриншот из Grafana с отображением метрик от приложений:
+ ![](img/grafana.png)
+
+
+Итоговый Docker Compose
+
 
 ---
 
