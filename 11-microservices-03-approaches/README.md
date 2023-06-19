@@ -372,8 +372,8 @@ scrape_configs:
  ![](img/grafana.png)
 
 
-Итоговый Docker Compose
 
+[Итоговый Docker Compose](https://github.com/Timych84/devops-netology/blob/main/11-microservices-03-approaches/docker-compose.yaml)
 
 ---
 
