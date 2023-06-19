@@ -15,18 +15,23 @@
 
 Обоснуйте свой выбор.
 
-Kong
+На рынке пристутствует большое количество решений, которые можно использовать в качестве API Gateway. Я рассмотрел четыре из них: Kong, Tyk, KrakenD, Nginx.
 
 |Наименование решения  |Маршрутизация запросов к нужному сервису на основе конфигурации  |Возможность проверки аутентификационной информации в запросах  |Обеспечение терминации HTTPS  |
 |---------|---------|---------|---------|
 |Kong     |+ API/config         |+         |+         |
-|Nginx    |+         |+         |+         |
 |Tyk     |+ API         |+         |+         |
 |KrakenD     |+         |+         |+         |
+|Nginx    |+         |+         |+         |
 
-Tyk представляют как основное решение по безопасности
-Securing your APIs is one of the primary uses of Tyk. Out of the box the Gateway offers a lot of functionality for securing your APIs and the Gateway itself.
-KrakenD позиционируется быстрее, удобный инструмент по генерации конфигов
+
+1. Kong - решение в основе которого лежит Nginx, имеет большое количество вариантов развертывания, для штатной работы требует наличия БД.
+1. Tyk - решение написанное на Go, производитель позиционирует как решение с очень широкими возможностями в области безопасности, обладает высокой произоводительностью.
+1. KrakenD - также написан на Go, позволяет легко разворачиваться, позиционируется как очень быстрое решение, имеет удобный инструмент по генерации конфигов.
+
+Все рассмотренные продукты удовлетворяют требованиям.
+В данном решении из-за небольшого набора требований я бы сделал выбор в пользу Nginx как самого легковесного решения пусть и без широкого функционала из коробки.
+
 
 ## Задача 2: Брокер сообщений
 
@@ -39,6 +44,8 @@ ns
 - поддержка различных форматов сообщений,
 - разделение прав доступа к различным потокам сообщений,
 - простота эксплуатации.
+
+Обоснуйте свой выбор.
 
 
 |Требование                                             |Kafka    |RabbitMQ |Redis    |
@@ -53,8 +60,6 @@ ns
 
 С точки зрения производительности, а также при обязательном требовании хранения сообщений на диске в процессе доставки лучшим решинем мне кажется Kafka. В случае сложной маршрутизации сообщений больше подойдет RabbitMQ. В целом если нужно простое и быстрое решение, то возможно больше подойдет Redis с настройкой сброса сообщений на диск
 
-
-Обоснуйте свой выбор.
 
 ## Задача 3: API Gateway * (необязательная)
 
@@ -118,19 +123,129 @@ curl -X GET http://localhost/images/4e6df220-295e-4231-82bc-45e4b1484430.jpg
 
 ---
 ### Решение
+
+Конфигурация nginx для работы приложений и консоли MinIO:
+
+```ini
+events {
+    worker_connections 1024;
+    multi_accept on;
+}
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    server {
+        listen 8080 default_server;
+
+        location /v1 {
+
+            location /v1/register {
+                proxy_pass http://security:3000/v1/user;
+            }
+
+            location /v1/token {
+                proxy_pass http://security:3000/v1/token;
+            }
+
+            location /v1/token/validation {
+                internal;
+                proxy_pass http://security:3000/v1/token/validation;
+                proxy_pass_request_body off;
+                proxy_set_header        Content-Length "";
+                proxy_set_header        X-Original-URI $request_uri;
+            }
+
+            location /v1/user {
+                proxy_pass http://security:3000/v1/user;
+            }
+
+            location ~ ^/v1/user/(.*)$ {
+                auth_request /v1/token/validation;
+                rewrite ^/v1/user/(.*)$ /data/$1 break;
+                proxy_pass http://storage:9000;
+            }
+
+            location /v1/status {
+                auth_request /v1/token/validation;
+                proxy_pass http://security:3000/status;
+            }
+
+            location /v1/upload {
+                auth_request /v1/token/validation;
+                proxy_pass http://uploader:3000/v1/upload;
+            }
+
+            location /v1/images {
+                auth_request /v1/token/validation;
+                proxy_pass http://storage:9000/data;
+            }
+
+
+        }
+    }
+    server {
+        listen 8080;
+        server_name minio.example.com;
+        ignore_invalid_headers off;
+        client_max_body_size 0;
+        proxy_buffering off;
+        proxy_request_buffering off;
+        location / {
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-NginX-Proxy true;
+            real_ip_header X-Real-IP;
+            proxy_connect_timeout 300;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            chunked_transfer_encoding off;
+            proxy_pass http://storage:9001/;
+
+        }
+    }
+
+}
+```
+
+Получаем токен:
+
+```bash
 curl -X POST -H 'Content-Type: application/json' -d '{"login":"bob", "password":"qwe123"}' http://192.168.171.200/v1/token
-
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I
+```
 
-curl -X GET -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I'  http://192.168.171.200:3002/v1/token/validation
 
+Проверка токена(отключена для внешнего доступа в итоговом конфиге nginx):
+
+```bash
+curl -X GET -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I'  http://192.168.171.200/v1/token/validation
+```
+
+Загрузка файла:
+
+```bash
 curl -X POST -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I' -H 'Content-Type: octet/stream' --data-binary @Untitled.jpg http://192.168.171.200/v1/upload
+{"filename":"46bfa775-2a60-4f56-b261-7c9f048e10b5.jpg"}
+```
 
+Скачивание файла (2 варианта v1/user/ и v1/images/):
 
-curl -X GET -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I'  http://192.168.171.200/v1/images/1ac5fd01-efe1-4e85-a15e-4074e9953d2a.jpg
+```bash
+curl -X GET -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I'  http://192.168.171.200/v1/user/46bfa775-2a60-4f56-b261-7c9f048e10b5.jpg -o download.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  5181  100  5181    0     0  1686k      0 --:--:-- --:--:-- --:--:-- 1686k
 
+curl -X GET -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I'  http://192.168.171.200/v1/images/46bfa775-2a60-4f56-b261-7c9f048e10b5.jpg -o download.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  5181  100  5181    0     0  1686k      0 --:--:-- --:--:-- --:--:-- 1686k
+```
 
-curl -X GET -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I'  http://192.168.171.200/v1/images/b704e76c-a4aa-446e-abcb-bfc58201b4a7.jpg
+[Итоговый Docker Compose](https://github.com/Timych84/devops-netology/blob/main/11-microservices-02-principles/docker-compose.yaml)
 
 ---
 
