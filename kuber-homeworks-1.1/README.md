@@ -76,12 +76,13 @@
 
 ## Решения
 
-timych@timych-k8s:~$ vim /var/snap/microk8s/current/certs/csr.conf.template
-timych@timych-k8s:~$ sudo microk8s refresh-certs --cert front-proxy-client.crt
+1. Скриншоты:
 
-# [ alt_names ]
-IP.3 = 192.168.171.200
+- Get nodes:\
+![pods](img/get-nodes.png)
 
+- Dashboard:\
+![curl](img/dashboard.png)
 
 ### Правила приёма работы
 
