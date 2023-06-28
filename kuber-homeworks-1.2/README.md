@@ -74,7 +74,8 @@
 
 1. Ссылки:
 
-
+    [Манифест pod](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-1.2/echoserver/hello-world_pod.yaml)
+    [Скрипт port-forward для pod](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-1.2/echoserver/port-forward_pod.sh)
 
 ------
 
@@ -152,6 +153,13 @@
 ![curl](img/port-forward-svc.png)
 
 
+1. Ссылки:
+
+    [Манифест pod](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-1.2/echoserver/netology-web_pod.yaml)
+
+    [Манифест svc](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-1.2/echoserver/netology-svc_service.yaml)
+
+    [Скрипт port-forward для svc](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-1.2/echoserver/port-forward_svc.sh)
 ------
 
 ### Правила приёма работы
