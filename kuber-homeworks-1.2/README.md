@@ -75,6 +75,7 @@
 1. Ссылки:
 
     [Манифест pod](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-1.2/echoserver/hello-world_pod.yaml)
+
     [Скрипт port-forward для pod](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-1.2/echoserver/port-forward_pod.sh)
 
 ------
