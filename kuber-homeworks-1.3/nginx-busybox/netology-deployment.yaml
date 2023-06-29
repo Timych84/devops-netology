@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netology-deployment
+  namespace: netology
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netology-apps
+  template:
+    metadata:
+      labels:
+        app: netology-apps
+    spec:
+      containers:
+      - name: nginx
+        imagePullPolicy: IfNotPresent
+        image: nginx:1.25.1-alpine3.17
+        ports:
+        - containerPort: 80
+        env:
+        - name: PORT
+          value: "80"
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: "128Mi"
+      initContainers:
+      - name: init-busybox
+        image: busybox:1.36
+        command: ['sh', '-c', "for i in $(seq 30); do sleep 2; if nslookup netology-service.netology.svc.cluster.local; then exit 0; fi; echo waiting for netology-service; done; exit 1"]
