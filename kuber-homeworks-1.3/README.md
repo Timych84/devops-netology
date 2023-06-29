@@ -204,6 +204,25 @@
             command: ['sh', '-c', "for i in $(seq 30); do sleep 2; if nslookup netology-service.netology.svc.cluster.local; then exit 0; fi; echo waiting for netology-service; done; exit 1"]
     ```
 
+1. Манифест Service
+
+    ```yml
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: netology-service
+      namespace: netology
+    spec:
+      ports:
+        - port: 80
+          targetPort: 80
+          protocol: TCP
+          name: nginx-http
+      type: ClusterIP
+      selector:
+        app: netology-apps
+    ```
+
 1. Проверка работы init контейнера:
 
    - Init container test:\
