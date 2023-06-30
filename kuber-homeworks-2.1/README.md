@@ -166,7 +166,7 @@
 
 3. Ссылки:
 
-    [Манифест deployment](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-2.1/busybox-multitool/netology-DaemonSet.yaml)
+    [Манифест DaemonSet](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-2.1/busybox-multitool/netology-DaemonSet.yaml)
 ------
 
 ------
