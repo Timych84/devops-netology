@@ -54,8 +54,8 @@
 
 1. Ссылки:
 
-    [netology_bug_workflow](https://github.com/Timych84/devops-netology/blob/main/09-ci-01-intro/workflows/netology_bug_workflow.yml)\
-    [netology_other_workflow](https://github.com/Timych84/devops-netology/blob/main/09-ci-01-intro/workflows/netology_other_workflow.yml)
+    [netology_bug_workflow](https://github.com/Timych84/devops-netology/blob/main/09-ci-01-intro/workflows/netology_bug_workflow.xml)\
+    [netology_other_workflow](https://github.com/Timych84/devops-netology/blob/main/09-ci-01-intro/workflows/netology_other_workflow.xml)
 
 
 ### Как оформить решение задания
