@@ -98,6 +98,9 @@
 
 ### Решение
 
+1. Артефакт:
+   ![artifact](img/artifact.png)
+
 1. файл pom.xml:
 
     ```xml
