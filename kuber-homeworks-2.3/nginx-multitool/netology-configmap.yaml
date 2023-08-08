@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: netology-configmap
+data:
+  nginx-http-port: "80"
+  multitool-http-port: "8080"
+  multitool-https-port: "11443"
+  nginx-conf: |
+    events {}         # event context have to be defined to consider config valid
+    http {
+    server {
+        listen 80;
+        server_name _;
+        root        /var/www/html/netology;
+      }
+    }
+  nginx-site: |
+    <!DOCTYPE html>
+    <html>
+    <body>
+      <div id = "result"> </div>
+      <script>
+          var myDomain = window.location.hostname;
+          document.getElementById("result").innerHTML = "<br>Domain name of the server that loaded the document: "+ myDomain;
+      </script>
+    </body>
+    </html>
