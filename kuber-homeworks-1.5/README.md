@@ -42,6 +42,177 @@
 
 ------
 
+
+
+### Решение
+1. Скриншоты:
+
+   - Доступ из backend во frontend и обратно:\
+   ![svc-access](img/svc-access.png)
+
+   - Доступ по ingress:\
+   ![ingress-access](img/ingress-access.png)
+
+
+2. Манифест Deployment
+    <details>
+        <summary>Deployment</summary>
+
+    ```yml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: netology-frontend-deployment
+      namespace: netology
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: netology-nginx
+      template:
+        metadata:
+          labels:
+            app: netology-nginx
+        spec:
+          containers:
+          - name: nginx
+            imagePullPolicy: IfNotPresent
+            image: nginx:1.25.1-alpine3.17
+            ports:
+            - containerPort: 80
+            env:
+            - name: PORT
+              value: "80"
+            resources:
+              limits:
+                cpu: "0.1"
+                memory: "128Mi"
+    ---
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: netology-backend-deployment
+      namespace: netology
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: netology-multitool
+      template:
+        metadata:
+          labels:
+            app: netology-multitool
+        spec:
+          containers:
+          - name: network-multitool
+            imagePullPolicy: IfNotPresent
+            image: wbitt/network-multitool
+            env:
+            - name: HTTP_PORT
+              value: "8080"
+            - name: HTTPS_PORT
+              value: "11443"
+            ports:
+            - containerPort: 8080
+              name: http-port
+            - containerPort: 11443
+              name: https-port
+            resources:
+              limits:
+                cpu: "0.1"
+                memory: "128Mi"
+
+    ```
+    </details>
+ 
+
+3. Манифест Service
+    <details>
+        <summary>Service</summary>
+
+    ```yml
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: netology-frontend-service
+      namespace: netology
+    spec:
+      ports:
+        - port: 9001
+          targetPort: 80
+          protocol: TCP
+          name: nginx-http
+      type: ClusterIP
+      selector:
+        app: netology-nginx
+    ---
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: netology-backend-service
+      namespace: netology
+    spec:
+      ports:
+        - port: 9002
+          targetPort: 8080
+          protocol: TCP
+          name: multitool-http
+        - port: 9443
+          targetPort: 11443
+          protocol: TCP
+          name: multitool-https
+      type: ClusterIP
+      selector:
+        app: netology-multitool
+    ```
+    </details>
+
+ 
+
+4. Манифест Ingress
+    <details>
+        <summary>Ingress</summary>
+
+    ```yml
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: netology-ingress
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
+    spec:
+      rules:
+      - http:
+          paths:
+          - path: /api
+            pathType: Exact
+            backend:
+              service:
+                name: netology-backend-service
+                port:
+                  name: multitool-http
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: netology-frontend-service
+                port:
+                  name: nginx-http
+    ```
+    </details>
+
+ 
+1. Ссылки:
+
+    [Манифесты](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-1.5/nginx-multitool/)
+
+
+
+
+
+
+
 ### Правила приема работы
 
 1. Домашняя работа оформляется в своем Git-репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
