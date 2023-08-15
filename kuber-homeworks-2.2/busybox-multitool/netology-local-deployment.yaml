@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netology-deployment
+  namespace: netology
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netology-apps
+  template:
+    metadata:
+      labels:
+        app: netology-apps
+    spec:
+      containers:
+      - name: busybox
+        imagePullPolicy: IfNotPresent
+        image: busybox:1.36
+        command: ['sh', '-c', 'for i in $(seq 30); do sleep 5; echo $(date -u) "5 sec log" >> /output/outfile; done']
+        volumeMounts:
+          - mountPath: "/output"
+            name: netology-volume
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: "128Mi"
+      - name: network-multitool
+        imagePullPolicy: IfNotPresent
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        - name: HTTPS_PORT
+          value: "11443"
+        ports:
+        - containerPort: 8080
+          name: http-port
+        - containerPort: 11443
+          name: https-port
+        volumeMounts:
+          - mountPath: "/input"
+            name: netology-volume
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: "128Mi"
+      volumes:
+        - name: netology-volume
+          persistentVolumeClaim:
+            claimName: pvc
