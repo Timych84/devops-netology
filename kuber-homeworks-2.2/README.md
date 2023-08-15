@@ -366,7 +366,7 @@
 #### Ссылки:
 
 
-[Манифесты](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-2.2/nginx-multitool/)
+[Манифесты](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-2.2/busybox-multitool/)
 
 
 ### Правила приёма работы
