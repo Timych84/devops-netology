@@ -100,7 +100,8 @@
        rules:
        - apiGroups: [""]
          resources: ["pods","pods/log"]
-         verbs: ["get","list"] #Для выполнения задания достаточно только get, добавил list для возможности получения списка подов```
+         verbs: ["get","list"] #Для выполнения задания достаточно только get, добавил list для возможности получения списка подов
+        ```
    2. Манифест RoleBinding
        ```yml
        apiVersion: rbac.authorization.k8s.io/v1
