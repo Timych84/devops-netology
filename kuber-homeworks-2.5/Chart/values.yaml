@@ -1,0 +1,47 @@
+replicaCount: 2
+
+multitoolImage:
+  repository: wbitt/network-multitool
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+nginxImage:
+  repository: nginx
+  pullPolicy: IfNotPresent
+
+multitoolSpec:
+  httpPort: 8080
+  httpsPort: 11443
+
+nginxSpec:
+  nginxhttpPort: 9099
+  httpPort: 80
+  httpsPort: 11443
+
+service:
+  name: multitool-service
+  type: ClusterIP
+  httpPort: 9002
+  httpsPort: 9443
+
+nginxConf: |
+  events {}         # event context have to be defined to consider config valid
+  http {
+  server {
+      listen 80;
+      server_name _;
+      root        /var/www/html/netology;
+    }
+  }
+# nginxSite:
+nginxSite: |
+  <!DOCTYPE html>
+  <html>
+  <body>
+    <div id = "result"> </div>
+    <script>
+        var myDomain = window.location.hostname;
+        document.getElementById("result").innerHTML = "<br>Version: 1.25.3-alpine3.18. Domain name of the server that loaded the document: "+ myDomain;
+    </script>
+  </body>
+  </html>

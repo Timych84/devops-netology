@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-service
+spec:
+  ports:
+    - port: {{ .Values.service.httpPort }}
+      targetPort: {{ .Values.multitoolSpec.httpPort }}
+      protocol: {{ .Values.service.protocol | default "TCP" }}
+      name: multitool-http
+    - port: {{ .Values.service.httpsPort }}
+      targetPort: {{ .Values.multitoolSpec.httpsPort }}
+      protocol: {{ .Values.service.protocol | default "TCP" }}
+      name: multitool-https
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ .Release.Name }}-multitool
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-nginxservice
+spec:
+  ports:
+    - port: {{ .Values.service.httpPort }}
+      targetPort: {{ .Values.nginxSpec.httpPort }}
+      protocol: {{ .Values.service.protocol | default "TCP" }}
+      name: nginx-http
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ .Release.Name }}-netology-nginx

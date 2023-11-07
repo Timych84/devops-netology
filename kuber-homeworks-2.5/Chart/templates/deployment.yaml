@@ -1,0 +1,85 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-multitool
+  labels:
+    app: {{ .Release.Name }}-multitool
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-multitool
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-multitool
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-multitool
+          imagePullPolicy: {{ .Values.multitoolImage.pullPolicy }}
+          image: "{{ .Values.multitoolImage.repository }}:{{ .Values.multitoolImage.tag }}"
+          env:
+          - name: HTTP_PORT
+            value: {{ quote .Values.multitoolSpec.httpPort }}
+          - name: HTTPS_PORT
+            value: {{ quote .Values.multitoolSpec.httpsPort }}
+          ports:
+          - containerPort: {{ .Values.multitoolSpec.httpPort }}
+            name: http-port
+          - containerPort: {{ .Values.multitoolSpec.httpsPort }}
+            name: https-port
+          resources:
+            limits:
+              cpu: "0.1"
+              memory: "128Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-nginx
+  labels:
+    app: {{ .Release.Name }}-netology-nginx
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-netology-nginx
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-netology-nginx
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}-nginx
+        imagePullPolicy: {{ .Values.nginxImage.pullPolicy }}
+        image: "{{ .Values.nginxImage.repository }}:{{ .Chart.AppVersion }}-alpine"
+        ports:
+        - containerPort: 80
+        env:
+        - name: PORT
+          value: "80"
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: "128Mi"
+        volumeMounts:
+        - name: {{ .Release.Name }}-nginx-config
+          mountPath: "/etc/nginx"
+          readOnly: true
+        - name: {{ .Release.Name }}-nginx-site
+          mountPath: "/var/www/html/netology"
+          readOnly: true
+      volumes:
+      - name: {{ .Release.Name }}-nginx-config
+        configMap:
+          name: {{ .Release.Name }}-configmap
+          items:
+          - key: nginxConf
+            path: nginx.conf
+      - name: {{ .Release.Name }}-nginx-site
+        configMap:
+          name: {{ .Release.Name }}-configmap
+          items:
+          - key: nginxSite
+            path: index.html

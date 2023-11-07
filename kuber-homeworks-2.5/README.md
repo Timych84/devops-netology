@@ -288,3 +288,6 @@
    1. Запускаем nginx 1.25.3(appVersion) в namespace app2
    1. Проверяем с помощью curl версию
    ![helm](img/helm.png)
+
+1. Ссылка на Chart:\
+  [Chart](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-2.5/Chart/)
