@@ -256,15 +256,15 @@
     1. Штатная работа в .kube/config (`server: https://192.168.171.199:8443`)\
       ![get-nodes-all-on](img/get-nodes-all-on.png)\
       Виртуальный адрес на node1\
-      ![ips-all-on](img/ips-all-on.png)
+      ![ips-all-on](img/ips-all-on.png)\
     2. Отключаем сеть на node1, виртуальный адрес на node3\
-      ![get-nodes-node1-off](img/get-nodes-node1-off.png)
-      ![ips-node1-off](img/ips-node1-off.png)
+      ![get-nodes-node1-off](img/get-nodes-node1-off.png)\
+      ![ips-node1-off](img/ips-node1-off.png)\
     3. Возвращаем сеть на node1, отключаем haproxy(systemctl stop haproxy.service) виртуальный адрес на node3\
-      ![get-nodes-node1haproxy-off](img/get-nodes-node1haproxy-off.png)
-      ![ips-node1-node1haproxy-off](img/ips-node1-node1haproxy-off.png)
+      ![get-nodes-node1haproxy-off](img/get-nodes-node1haproxy-off.png)\
+      ![ips-node1-node1haproxy-off](img/ips-node1-node1haproxy-off.png)\
     4. Удаляем pod apiserver с node1(pod в состоянии pending), убеждаемся, что kubectl продолжает работать\
-      ![get-nodes-node1apiserver-off](img/get-nodes-node1apiserver-off.png)
+      ![get-nodes-node1apiserver-off](img/get-nodes-node1apiserver-off.png)\
 ### Правила приёма работы
 
 1. Домашняя работа оформляется в своем Git-репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
