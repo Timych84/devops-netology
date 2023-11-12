@@ -33,7 +33,7 @@
     CONFIG_FILE=inventory/mycluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
     ```
 
-    Редактируем invenroty
+    Редактируем inventory
     ```yml
     all:
       hosts:
@@ -90,13 +90,13 @@
 
     Результат:
     - Kubespray
-    ![kubespray](img/kubespray.png)
+        ![kubespray](img/kubespray.png)
     - Nodes
-    ![nodes](img/nodes.png)
+        ![nodes](img/nodes.png)
     - etcd
-    ![etcd](img/etcd.png)
+        ![etcd](img/etcd.png)
     - тест deployment
-    ![deployment](img/deployment.png)
+        ![deployment](img/deployment.png)
 
 
 ## Дополнительные задания (со звёздочкой)
@@ -244,20 +244,20 @@
 
     Результат:
     - Kubespray
-    ![kubespray-ha](img/kubespray-ha.png)
+        ![kubespray-ha](img/kubespray-ha.png)
     - Nodes
-    ![nodes](img/nodes-ha.png)
+        ![nodes](img/nodes-ha.png)
     - etcd
-    ![etcd](img/etcd-ha.png)
+        ![etcd](img/etcd-ha.png)
     - тест deployment
-    ![deployment](img/deployment-ha.png)
+        ![deployment](img/deployment-ha.png)
 
     Проверка HA:
     1. Штатная работа в .kube/config (`server: https://192.168.171.199:8443`)
         ![get-nodes-all-on](img/get-nodes-all-on.png)
         Виртуальный адрес на node1
         ![ips-all-on](img/ips-all-on.png)
-    1. Отключаем сеть на node1, виртуальный адрес на node3:
+    1. Отключаем сеть на node1, виртуальный адрес на node3
         ![get-nodes-node1-off](img/get-nodes-node1-off.png)
         ![ips-node1-off](img/ips-node1-off.png)
     1. Возвращаем сеть на node1, отключаем haproxy(systemctl stop haproxy.service) виртуальный адрес на node3:
