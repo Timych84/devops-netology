@@ -254,8 +254,8 @@
 
 1.  Проверка HA:
     1. Штатная работа в .kube/config (`server: https://192.168.171.199:8443`)\
-      ![get-nodes-all-on](img/get-nodes-all-on.png)
-      Виртуальный адрес на node1
+      ![get-nodes-all-on](img/get-nodes-all-on.png)\
+      Виртуальный адрес на node1\
       ![ips-all-on](img/ips-all-on.png)
     2. Отключаем сеть на node1, виртуальный адрес на node3\
       ![get-nodes-node1-off](img/get-nodes-node1-off.png)
