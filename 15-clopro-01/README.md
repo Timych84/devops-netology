@@ -240,3 +240,6 @@ Resource Terraform:
 
 1. Результат выполнения(копирование сертификата на public-vm, соедиенение к private-vm, проверка доступа к интернет через curl ifconfig.me)
 ![](img/result.png)
+
+1. Ссылка на конфигурационные файлы terraform
+[terraform](https://github.com/Timych84/devops-netology/blob/main/15-clopro-01/terraform/)
