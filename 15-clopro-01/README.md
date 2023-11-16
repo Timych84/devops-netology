@@ -70,7 +70,7 @@ Resource Terraform:
 
 1. Конфигурационные файлы Terraform
    1. main.tf
-        ```json
+        ```terraform
         terraform {
                     backend "s3" {
                     endpoint                    = "storage.yandexcloud.net"
@@ -126,7 +126,7 @@ Resource Terraform:
                 }
         ```
    1. network.tf
-        ```json
+        ```terraform
         resource "yandex_vpc_network" "default" {
           name = "netology"
         }
@@ -158,7 +158,7 @@ Resource Terraform:
         }
         ```
    1. output.tf
-        ```json
+        ```terraform
         locals {
                   instance_details = {
                     for key, instance in yandex_compute_instance.netology_instances :
