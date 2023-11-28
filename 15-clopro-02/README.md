@@ -187,18 +187,18 @@ echo "<html><h1>My cool web-server</h1></html>" > index.html
         }
         ```
     2. network.tf
-     ```terraform
-     resource "yandex_vpc_network" "default" {
-       name = "netology"
-     }
+         ```terraform
+         resource "yandex_vpc_network" "default" {
+           name = "netology"
+         }
 
-     resource "yandex_vpc_subnet" "private" {
-       name           = "private"
-       zone           = var.zone
-       network_id     = yandex_vpc_network.default.id
-       v4_cidr_blocks = ["192.168.20.0/24"]
-     }
-     ```
+         resource "yandex_vpc_subnet" "private" {
+           name           = "private"
+           zone           = var.zone
+           network_id     = yandex_vpc_network.default.id
+           v4_cidr_blocks = ["192.168.20.0/24"]
+         }
+         ```
    2. storage.tf
         ```terraform
         resource "yandex_storage_bucket" "test" {
