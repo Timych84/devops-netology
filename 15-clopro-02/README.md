@@ -186,20 +186,20 @@ echo "<html><h1>My cool web-server</h1></html>" > index.html
           }
         }
         ```
-       1. network.tf
-        ```terraform
-        resource "yandex_vpc_network" "default" {
-          name = "netology"
-        }
+    2. network.tf
+     ```terraform
+     resource "yandex_vpc_network" "default" {
+       name = "netology"
+     }
 
-        resource "yandex_vpc_subnet" "private" {
-          name           = "private"
-          zone           = var.zone
-          network_id     = yandex_vpc_network.default.id
-          v4_cidr_blocks = ["192.168.20.0/24"]
-        }
-        ```
-   1. storage.tf
+     resource "yandex_vpc_subnet" "private" {
+       name           = "private"
+       zone           = var.zone
+       network_id     = yandex_vpc_network.default.id
+       v4_cidr_blocks = ["192.168.20.0/24"]
+     }
+     ```
+   2. storage.tf
         ```terraform
         resource "yandex_storage_bucket" "test" {
           access_key = var.ACCESS_KEY
@@ -217,7 +217,7 @@ echo "<html><h1>My cool web-server</h1></html>" > index.html
         }
         ```
 
-   1. output.tf
+   3. output.tf
         ```terraform
         output "load_balancer_public_ip" {
           description = "Private IP addresses"
@@ -289,7 +289,7 @@ echo "<html><h1>My cool web-server</h1></html>" > index.html
         }
         ```
 
-1. Результат выполнения(Создание instance group(LEMP), создание в инстансах веб-страницы с указанием имени сервера на странице, network load balancer, проверка)
+1. Результат выполнения(Создание instance group(LEMP), создание в инстансах веб-страницы с указанием имени сервера на странице, network load balancer, проверка)\
 ![](img/apply.png)
 ![](img/instance1.png)
 ![](img/instance2.png)
