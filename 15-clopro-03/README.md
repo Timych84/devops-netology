@@ -73,7 +73,7 @@ aws s3 cp index.html s3://mysuperbacketname2021
 
 ### Решение
 
-1. Для настройки шифрования в бакете добавляем ресурс yandex_kms_symmetric_key, добавляем сервисному аккунту роль kms.keys.encrypterDecrypter и включаем шифрование в ресурсе бакета(server_side_encryption_configuration). При этом работа включение делает невозможным просмотр статического сайта(ошибка nusuchbucket), поэтому в дальнейшем коде шифрование закомментировано.
+1. Для настройки шифрования в бакете добавляем ресурс yandex_kms_symmetric_key, добавляем сервисному аккунту роль kms.keys.encrypterDecrypter и включаем шифрование в ресурсе бакета(server_side_encryption_configuration). При этом включение шифрования делает невозможным просмотр статического сайта(ошибка nusuchbucket), поэтому в дальнейшем коде шифрование закомментировано.
 2. Сертификат удалось прикрутить с помощью terraform, единственно, что пришлось в стороннем dns сервисе сделать запись типа: CNAME netology-tf-test netology-tf-test.timych.ru.website.yandexcloud.net.
    1. Добавляем сертификат LetsEncrypt с помощью ресурса yandex_cm_certificate с типом проверки HTTP
    2. Получаем содержимое и путь к проверочному файлу для LetsEncrypt из ресурса yandex_cm_certificate
@@ -243,4 +243,4 @@ aws s3 cp index.html s3://mysuperbacketname2021
 
 
 1. Ссылка на конфигурационные файлы terraform
-[terraform](https://github.com/Timych84/devops-netology/blob/main/15-clopro-02/terraform/)
+[terraform](https://github.com/Timych84/devops-netology/blob/main/15-clopro-03/terraform/)
