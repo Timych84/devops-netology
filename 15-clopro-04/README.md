@@ -425,6 +425,7 @@
 1. Решил развррнуть deployment с phpmyadmin и LoadBalancer service с помощью Terraform K8S provider. Конфигурационные файлы Terraform:
    1.   <details>
         <summary>main.tf</summary>
+
         ```terraform
         locals {
           mysql_host      = "rc1a-t9y4p3om97e10rym.mdb.yandexcloud.net"
