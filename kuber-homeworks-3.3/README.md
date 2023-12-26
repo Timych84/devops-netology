@@ -181,4 +181,4 @@
 
 
 1. Ссылка на Chart, политики и скрипт проверки:\
-  [Link](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-3.3/Code/)
+  [Link](https://github.com/Timych84/devops-netology/blob/main/kuber-homeworks-3.3/code/)
