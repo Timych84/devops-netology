@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-multitool
+  labels:
+    app: {{ .Release.Name }}-multitool
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-multitool
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-multitool
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-multitool
+          imagePullPolicy: {{ .Values.multitoolImage.pullPolicy }}
+          image: "{{ .Values.multitoolImage.repository }}:{{ .Values.multitoolImage.tag }}"
+          env:
+          - name: HTTP_PORT
+            value: {{ quote .Values.multitoolSpec.httpPort }}
+          - name: HTTPS_PORT
+            value: {{ quote .Values.multitoolSpec.httpsPort }}
+          ports:
+          - containerPort: {{ .Values.multitoolSpec.httpPort }}
+            name: http-port
+          - containerPort: {{ .Values.multitoolSpec.httpsPort }}
+            name: https-port
+          resources:
+            limits:
+              cpu: "0.1"
+              memory: "128Mi"

@@ -1,0 +1,89 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend-multitool
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+  egress:
+    - to:
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              app: backend-multitool
+      ports:
+        - port: 8080
+        - port: 11443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: backend
+spec:
+  podSelector:
+    matchLabels:
+      app: backend-multitool
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: frontend-multitool
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 11443
+  egress:
+    - to:
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              app: cache-multitool
+      ports:
+        - port: 8080
+        - port: 11443
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: cache
+spec:
+  podSelector:
+    matchLabels:
+      app: cache-multitool
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: backend-multitool
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 11443
