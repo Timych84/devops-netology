@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netology-frontend-deployment-1
+  namespace: netology
+  labels:
+    app: netology-nginx
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: netology-nginx
+  template:
+    metadata:
+      labels:
+        app: netology-nginx
+    spec:
+      containers:
+      - name: nginx
+        imagePullPolicy: IfNotPresent
+        image: nginx:1.29
+        ports:
+        - containerPort: 80
+        env:
+          - name: "PORT"
+            value: "80"
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: "128Mi"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 5
+      maxUnavailable: 4

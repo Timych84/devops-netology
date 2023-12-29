@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netology-frontend-deployment-2
+  namespace: netology
+  labels:
+    app: netology-nginx
+    version: v2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: netology-nginx
+  template:
+    metadata:
+      labels:
+        app: netology-nginx
+        version: v2
+    spec:
+      containers:
+      - name: nginx
+        imagePullPolicy: IfNotPresent
+        image: nginx:1.25.1-alpine3.17
+        ports:
+        - containerPort: 80
+        env:
+          - name: "PORT"
+            valueFrom:
+              configMapKeyRef:
+                name: netology-configmap-2
+                key: nginx-http-port
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: "128Mi"
+        volumeMounts:
+        - name: nginx-config
+          mountPath: "/etc/nginx"
+          readOnly: true
+        - name: nginx-site
+          mountPath: "/var/www/html/netology"
+          readOnly: true
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: netology-configmap-2
+          items:
+          - key: nginx-conf
+            path: nginx.conf
+      - name: nginx-site
+        configMap:
+          name: netology-configmap-2
+          items:
+          - key: nginx-site
+            path: index.html
